@@ -98,6 +98,11 @@ class VentajaEnMapa(BaseModel):
             }
         }
 
+class ArmaEnMapa(BaseModel):
+    arma: dict
+    precio: int
+    enCaja: Literal["pared", "caja", "inicial"]
+
 class Mapa(BaseModel):
     """
         Define todo el mapa menos su id de la base de datos
@@ -135,10 +140,6 @@ class MapaUpdate(BaseModel):
     armas: Optional[list[ArmaEnMapa]] = None
     ventajas: Optional[list[VentajaEnMapa]] = None
 
-class ArmaEnMapa(BaseModel):
-    arma: dict
-    precio: int
-    enCaja: Literal["pared", "caja", "inicial"]
 
 # ====================================================================
 # MODELOS DE USUARIO
