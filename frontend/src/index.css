@@ -1,0 +1,169 @@
+/* src/index.css */
+/* REEMPLAZA TODO EL CONTENIDO de tu archivo index.css con esto */
+
+/* ========================================
+   DIRECTIVAS DE TAILWIND (OBLIGATORIAS)
+   Estas 3 líneas DEBEN estar al inicio
+======================================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./components/armas.css";
+
+/* ========================================
+   ESTILOS BASE
+   Se aplican a todo el documento
+======================================== */
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-zombie-dark to-zombie-navy text-white min-h-screen;
+  }
+  
+  * {
+    @apply m-0 p-0 box-border;
+  }
+  
+  /* Mejorar fuentes */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+}
+
+/* ========================================
+   COMPONENTES PERSONALIZADOS
+   Clases reutilizables para tu app
+======================================== */
+@layer components {
+  
+  /* Botón con efecto neón verde */
+  .btn-neon-green {
+    @apply bg-gradient-to-r from-zombie-green to-green-600 
+           text-black font-bold py-3 px-6 rounded-lg 
+           transition-all duration-300 
+           shadow-neon-green-lg 
+           hover:shadow-neon-green-xl 
+           hover:-translate-y-0.5
+           cursor-pointer
+           border-0;
+  }
+
+  /* Tarjeta con borde neón */
+  .card-neon {
+    @apply bg-gradient-to-br from-zombie-blue/90 to-zombie-blue-dark/90 
+           border-2 border-zombie-green rounded-xl p-6 
+           transition-all duration-300 
+           shadow-neon-green-lg 
+           hover:shadow-neon-green-xl 
+           hover:-translate-y-2;
+  }
+
+  /* Input con estilo zombies */
+  .input-zombie {
+    @apply w-full px-4 py-3 
+           bg-black/50 
+           border-2 border-zombie-green rounded-lg 
+           text-white 
+           focus:outline-none 
+           focus:border-green-600 
+           focus:shadow-neon-green 
+           transition-all
+           placeholder:text-gray-500;
+  }
+
+  /* Spinner de carga */
+  .spinner {
+    @apply border-4 border-zombie-green/30 
+           border-t-zombie-green 
+           rounded-full w-12 h-12 
+           animate-spin;
+  }
+  
+  /* Botón secundario */
+  .btn-secondary {
+    @apply bg-gray-600 
+           hover:bg-gray-700 
+           text-white font-bold 
+           py-3 px-6 rounded-lg 
+           transition-all duration-300 
+           hover:-translate-y-0.5
+           cursor-pointer
+           border-0;
+  }
+  
+  /* Badge/Tag */
+  .badge-game {
+    @apply inline-block 
+           bg-red-900/30 
+           border border-red-500 
+           text-white 
+           px-3 py-1 
+           rounded-full 
+           text-sm font-medium;
+  }
+}
+
+/* ========================================
+   UTILIDADES PERSONALIZADAS
+   Clases de una sola propiedad
+======================================== */
+@layer utilities {
+  /* Texto con efecto neón verde */
+  .text-neon-green {
+    @apply text-zombie-green;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+  }
+  
+  /* Sombra de texto neón */
+  .text-shadow-neon {
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  }
+  
+  /* Backdrop blur para glassmorphism */
+  .backdrop-blur-custom {
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* ========================================
+   SCROLLBAR PERSONALIZADA (opcional)
+======================================== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+/* 
+UBICACIÓN DE ESTE ARCHIVO:
+frontend/
+└── src/
+    ├── App.js
+    ├── index.js
+    └── index.css  ← AQUÍ
+
+IMPORTANTE:
+- Este archivo DEBE importarse en index.js
+- Las directivas @tailwind DEBEN estar al inicio
+- Si tienes contenido antiguo en index.css, ELIMÍNALO
+*/

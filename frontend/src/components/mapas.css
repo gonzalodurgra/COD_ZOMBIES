@@ -1,0 +1,517 @@
+/* src/components/mapas.css */
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+======================================== */
+.contenedor-mapas {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* ========================================
+   ENCABEZADO
+======================================== */
+.cabecera-mapas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: linear-gradient(90deg, #16213e 0%, #0f3460 100%);
+    border-radius: 10px;
+    border: 2px solid #00ff00;
+    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.3);
+}
+
+.cabecera-mapas h1 {
+    font-size: 2rem;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    margin: 0;
+}
+
+/* ========================================
+   FILTROS
+======================================== */
+.contenedor-filtros-mapas {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(15, 52, 96, 0.5);
+    border-radius: 5px;
+}
+
+.filtro-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filtro-item label {
+    color: #00ff00;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.filtro-select {
+    background: rgba(15, 52, 96, 0.9);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    padding: 0.7rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.contador-mapas {
+    margin-left: auto;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   SPINNER
+======================================== */
+.spinner-cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    gap: 1rem;
+    color: #00ff00;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 255, 0, 0.3);
+    border-top: 4px solid #00ff00;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   GRID DE MAPAS
+======================================== */
+.mapas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ========================================
+   TARJETA DE MAPA
+======================================== */
+.mapa-card {
+    background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(15, 52, 96, 0.9) 100%);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+}
+
+.mapa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+}
+
+/* Imagen */
+.mapa-imagen-wrapper {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.mapa-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.mapa-card:hover .mapa-imagen {
+    transform: scale(1.05);
+}
+
+/* Badge de dificultad sobre la imagen */
+.badge-dificultad {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    padding: 0.25rem 0.7rem;
+    border: 2px solid;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+/* Info */
+.mapa-info {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.mapa-info h3 {
+    color: #00ff00;
+    font-size: 1.3rem;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    margin: 0;
+}
+
+.mapa-descripcion {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Stats rápidos */
+.mapa-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.stat-icono {
+    font-size: 1rem;
+}
+
+.stat-valor {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.stat-label {
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+/* Tags de juegos */
+.game-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.game-tag {
+    display: inline-block;
+    background: rgba(255, 0, 0, 0.3);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    border: 1px solid #ff0000;
+}
+
+/* Sin resultados */
+.sin-mapas {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: #aaa;
+    font-size: 1.2rem;
+}
+
+/* Mensaje de error */
+.mensaje-error {
+    background: rgba(231, 76, 60, 0.2);
+    border: 2px solid #e74c3c;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+
+/* ========================================
+   FORMULARIO
+======================================== */
+.form-titulo {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.mapa-form {
+    background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(15, 52, 96, 0.9) 100%);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: #00ff00;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-hint {
+    color: #aaa;
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00cc00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.imagen-preview {
+    display: block;
+    margin-top: 0.8rem;
+    max-height: 150px;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 255, 0, 0.4);
+    object-fit: cover;
+}
+
+/* Checkboxes de armas y ventajas */
+/* Ocultamos el checkbox nativo para usar uno personalizado */
+.item-seleccion {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    transition: all 0.2s;
+    margin-bottom: 0.4rem;
+    box-sizing: border-box;
+    /* flex-direction column para que label y extras vayan en filas separadas */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.item-seleccion:last-child {
+    margin-bottom: 0;
+}
+
+.item-seleccionado {
+    background: rgba(0, 255, 0, 0.08);
+    border-color: #00ff00;
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.15);
+}
+
+
+.item-seleccion-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Ocupa toda la fila */
+    align-self: stretch;
+    color: #00cc00;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0 !important;
+}
+
+.item-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 50px;
+    height: 26px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00cc00;
+    border-radius: 13px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+    min-width: 50px;
+    max-width: 50px;
+    padding: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+/* La bolita del toggle */
+.item-checkbox::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #00cc00;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+}
+
+/* Cuando está activado */
+.item-checkbox:checked {
+    background: rgba(255, 140, 0, 0.3);
+    border-color: #00cc00;
+}
+
+.item-checkbox:checked::before {
+    left: 26px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+/* ── Extras (precio + aparición) ─────────────────────────── */
+.item-extras {
+    display: flex;
+    gap: 1rem;
+    /* Espacio generoso entre la fila principal y los extras */
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(0, 255, 0, 0.15);
+    flex-wrap: wrap;
+}
+
+.extra-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 130px;
+}
+
+.extra-field label {
+    color: #aaa !important;
+    font-size: 0.78rem !important;
+    font-weight: normal !important;
+    margin-bottom: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.extra-field input,
+.extra-field select {
+    padding: 0.45rem 0.7rem !important;
+    font-size: 0.9rem !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(0, 255, 0, 0.4) !important;
+    border-radius: 5px !important;
+    color: #fff !important;
+    width: 100% !important;
+    transition: border-color 0.2s;
+}
+
+.extra-field input:focus,
+.extra-field select:focus {
+    border-color: #00ff00 !important;
+    outline: none !important;
+    box-shadow: 0 0 6px rgba(0, 255, 0, 0.2) !important;
+}
+
+/* Botones del formulario */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+}
+
+.btn-save:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-cancel {
+    background: #95a5a6;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #7f8c8d;
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 768px) {
+    .contenedor-filtros-mapas {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .contador-mapas {
+        margin-left: 0;
+    }
+
+    .mapas-grid {
+        grid-template-columns: 1fr;
+    }
+}

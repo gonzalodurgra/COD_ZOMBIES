@@ -1,0 +1,298 @@
+/* src/components/auth.css */
+/* Estilos para Login y Registro - COD Zombies Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+/* =============================================
+   VARIABLES (misma paleta que el resto de la web)
+   ============================================= */
+:root {
+    --zombies-bg: #0a0a0a;
+    --zombies-surface: #111111;
+    --zombies-card: #1a1a1a;
+    --zombies-border: #2a2a2a;
+    --zombies-green: #39ff14;
+    --zombies-green-dim: rgba(57, 255, 20, 0.15);
+    --zombies-green-glow: rgba(57, 255, 20, 0.4);
+    --zombies-red: #ff2020;
+    --zombies-red-dim: rgba(255, 32, 32, 0.15);
+    --zombies-gold: #c8a84b;
+    --zombies-text: #e8e8e8;
+    --zombies-text-muted: #888;
+    --font-display: 'Bebas Neue', cursive;
+    --font-body: 'Rajdhani', sans-serif;
+}
+
+/* =============================================
+   CONTENEDOR PRINCIPAL
+   ============================================= */
+.auth-page {
+    min-height: 100vh;
+    background-color: var(--zombies-bg);
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(57, 255, 20, 0.04) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 32, 32, 0.04) 0%, transparent 50%),
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.01) 2px,
+            rgba(255, 255, 255, 0.01) 4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    font-family: var(--font-body);
+}
+
+/* =============================================
+   TARJETA DEL FORMULARIO
+   ============================================= */
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--zombies-card);
+    border: 1px solid var(--zombies-border);
+    border-top: 3px solid var(--zombies-green);
+    position: relative;
+    animation: authFadeIn 0.4s ease;
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--zombies-red);
+}
+
+@keyframes authFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =============================================
+   CABECERA
+   ============================================= */
+.auth-header {
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--zombies-border);
+    text-align: center;
+}
+
+.auth-logo {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    letter-spacing: 0.08em;
+    color: var(--zombies-green);
+    text-shadow: 0 0 20px var(--zombies-green-glow);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.auth-subtitle {
+    font-size: 0.85rem;
+    color: var(--zombies-text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* =============================================
+   CUERPO DEL FORMULARIO
+   ============================================= */
+.auth-body {
+    padding: 2rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* =============================================
+   GRUPOS DE INPUTS
+   ============================================= */
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.auth-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--zombies-text-muted);
+}
+
+.auth-input-wrapper {
+    position: relative;
+}
+
+.auth-input {
+    width: 100%;
+    background: var(--zombies-surface);
+    border: 1px solid var(--zombies-border);
+    color: var(--zombies-text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.auth-input:focus {
+    border-color: var(--zombies-green);
+    box-shadow: 0 0 0 2px var(--zombies-green-dim);
+}
+
+.auth-input::placeholder {
+    color: #444;
+}
+
+.auth-input.error {
+    border-color: var(--zombies-red);
+    box-shadow: 0 0 0 2px var(--zombies-red-dim);
+}
+
+/* =============================================
+   MENSAJES DE ERROR
+   ============================================= */
+.auth-field-error {
+    font-size: 0.78rem;
+    color: var(--zombies-red);
+    letter-spacing: 0.05em;
+}
+
+.auth-error-banner {
+    background: var(--zombies-red-dim);
+    border: 1px solid var(--zombies-red);
+    border-left: 3px solid var(--zombies-red);
+    color: #ff8080;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+}
+
+.auth-success-banner {
+    background: var(--zombies-green-dim);
+    border: 1px solid var(--zombies-green);
+    border-left: 3px solid var(--zombies-green);
+    color: var(--zombies-green);
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+}
+
+/* =============================================
+   BOTÓN PRINCIPAL
+   ============================================= */
+.auth-btn {
+    width: 100%;
+    background: var(--zombies-green);
+    color: #000;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
+    padding: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+    margin-top: 0.5rem;
+}
+
+.auth-btn:hover:not(:disabled) {
+    background: #50ff25;
+    box-shadow: 0 0 20px var(--zombies-green-glow);
+}
+
+.auth-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.auth-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =============================================
+   PIE DEL FORMULARIO (enlace a la otra vista)
+   ============================================= */
+.auth-footer {
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--zombies-border);
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--zombies-text-muted);
+}
+
+.auth-link {
+    color: var(--zombies-green);
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    margin-left: 0.25rem;
+    transition: color 0.2s;
+}
+
+.auth-link:hover {
+    color: #50ff25;
+}
+
+/* =============================================
+   SPINNER DE CARGA
+   ============================================= */
+.auth-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =============================================
+   DIVISOR
+   ============================================= */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--zombies-border);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--zombies-border);
+}
