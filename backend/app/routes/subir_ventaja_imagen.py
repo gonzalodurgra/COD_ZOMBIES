@@ -9,8 +9,8 @@ async def subir_imagen_ventaja(
     imagen: UploadFile = File(...),
     nombre: str = Form(...)
 ):
-    BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
-    carpeta_imagenes = BASE_DIR / f"frontend/public/img/VENTAJAS"
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    carpeta_imagenes = BASE_DIR / f"img/VENTAJAS"
     carpeta_imagenes.mkdir(parents=True, exist_ok=True)
 
     extension = imagen.filename.split(".")[-1]

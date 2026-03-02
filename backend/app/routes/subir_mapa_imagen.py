@@ -8,8 +8,8 @@ router = APIRouter(tags=["Imágenes"])
 @router.post("/imagen-mapas")
 async def subir_imagen(imagen: UploadFile = File(...), juego: str = Form(...), nombre: str = Form(...)):
 
-    BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
-    carpeta_imagenes = BASE_DIR / f"frontend/public/img/MAPAS/{juego.upper()}"
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    carpeta_imagenes = BASE_DIR / f"img/MAPAS/{juego.upper()}"
     carpeta_imagenes.mkdir(parents=True, exist_ok=True)
 
     extension = imagen.filename.split(".")[-1]
