@@ -1,8 +1,8 @@
 // src/services/perksService.js
 // Servicio para manejar todas las peticiones a la API de ventajas (perks)
 
-const API_URL = process.env.REACT_APP_API_URL_VENTAJAS || 'http://localhost:8000/api/ventajas';
-const API_IMAGENES = process.env.REACT_APP_API_URL_IMAGEN_VENTAJAS || 'http://localhost:8000/api/imagen-mapas'
+const API_URL = "https://codzombies-api.onrender.com/api/ventajas" || 'http://localhost:8000/api/ventajas';
+const API_IMAGENES = "https://codzombies-api.onrender.com/api/imagen-ventajas" || 'http://localhost:8000/api/imagen-mapas'
 
 class ServicioVentajas {
 

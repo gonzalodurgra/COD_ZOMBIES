@@ -1,8 +1,8 @@
 // src/services/servicioMapas.js
 // Servicio para manejar todas las peticiones a la API de mapas
 
-const API_URL = process.env.REACT_APP_API_URL_MAPAS || 'http://localhost:8000/api/mapas';
-const API_IMAGENES = process.env.REACT_APP_API_URL_IMAGEN_MAPAS || 'http://localhost:8000/api/imagen-mapas'
+const API_URL = "https://codzombies-api.onrender.com/api/mapas" || 'http://localhost:8000/api/mapas';
+const API_IMAGENES = "https://codzombies-api.onrender.com/api/imagen-mapas" || 'http://localhost:8000/api/imagen-mapas'
 
 class ServicioMapas {
 

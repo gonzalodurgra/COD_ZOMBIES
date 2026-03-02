@@ -1,7 +1,7 @@
 // src/services/servicioAuth.js
 // Servicio para manejar autenticación (login, registro, sesión)
 
-const AUTH_URL = process.env.REACT_APP_API_URL_AUTH || 'http://localhost:8000/auth';
+const AUTH_URL = "https://codzombies-api.onrender.com/api/auth" || 'http://localhost:8000/auth';
 
 class ServicioAuth {
 

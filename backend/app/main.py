@@ -48,7 +48,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:4200",  # Angular development server
         "http://localhost:3000",  # Por si usas otro puerto
-        "https://cod-zombies.onrender.com"
+        "https://cod-zombies.onrender.com/*"
     ],
     allow_credentials=True,
     allow_methods=["*"],  # Permitir todos los métodos (GET, POST, PUT, DELETE)
