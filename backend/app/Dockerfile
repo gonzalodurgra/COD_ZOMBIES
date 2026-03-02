@@ -21,7 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # PASO 5: Copiar todo el código del backend
 # Esto copia el directorio 'app' con todos los archivos Python
-COPY ./app ./app
+COPY . ./app
 
 # PASO 6: Exponer el puerto donde correrá FastAPI
 # Render asignará este puerto automáticamente
