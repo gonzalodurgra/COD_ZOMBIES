@@ -57,7 +57,7 @@ app.add_middleware(
 
 BASE_DIR = Path(__file__).resolve().parent
 # Esto permite que FastAPI sirva las imágenes guardadas
-app.mount("/img", StaticFiles(directory=BASE_DIR.parent.parent / "frontend" / "public" / "img"), name="imagenes")
+app.mount("/img", StaticFiles(directory=BASE_DIR.parent / "frontend" / "public" / "img"), name="imagenes")
 
 # PASO 4: Incluir las rutas de las diferentes secciones
 # Todas las rutas de armas.py, ventajas.py y mapas.py se añadirán bajo /api
