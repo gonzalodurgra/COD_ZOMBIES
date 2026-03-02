@@ -12,6 +12,8 @@ from app.database import conectar_mongo, cerrar_conexion
 # Importar las rutas
 from app.routes import armas, ventajas, mapas, subir_arma_imagen, subir_mapa_imagen, subir_ventaja_imagen, auth_routes
 
+from pathlib import Path
+
 # PASO 1: Definir el ciclo de vida de la aplicación
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -53,8 +55,9 @@ app.add_middleware(
     allow_headers=["*"],  # Permitir todos los headers
 )
 
+BASE_DIR = Path(__file__).resolve().parent
 # Esto permite que FastAPI sirva las imágenes guardadas
-app.mount("/img", StaticFiles(directory="https://cod-zombies.onrender.com/img"), name="imagenes")
+app.mount("/img", StaticFiles(directory=BASE_DIR / "https://cod-zombies.onrender.com/img"), name="imagenes")
 
 # PASO 4: Incluir las rutas de las diferentes secciones
 # Todas las rutas de armas.py, ventajas.py y mapas.py se añadirán bajo /api
