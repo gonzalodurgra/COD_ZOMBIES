@@ -1,7 +1,8 @@
 // src/services/perksService.js
 // Servicio para manejar todas las peticiones a la API de ventajas (perks)
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api/ventajas';
+const API_URL = process.env.REACT_APP_API_URL_VENTAJAS || 'http://localhost:8000/api/ventajas';
+const API_IMAGENES = process.env.REACT_APP_API_URL_IMAGEN_VENTAJAS || 'http://localhost:8000/api/imagen-mapas'
 
 class ServicioVentajas {
 
@@ -111,7 +112,7 @@ class ServicioVentajas {
         formData.append("imagen", imagen);
         formData.append("nombre", nombre);
 
-        const response = await fetch("http://localhost:8000/api/imagen-ventajas", {
+        const response = await fetch(API_IMAGENES, {
             method: "POST",
             body: formData
         });

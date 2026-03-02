@@ -1,7 +1,8 @@
 // src/services/servicioMapas.js
 // Servicio para manejar todas las peticiones a la API de mapas
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api/mapas';
+const API_URL = process.env.REACT_APP_API_URL_MAPAS || 'http://localhost:8000/api/mapas';
+const API_IMAGENES = process.env.REACT_APP_API_URL_IMAGEN_MAPAS || 'http://localhost:8000/api/imagen-mapas'
 
 class ServicioMapas {
 
@@ -83,7 +84,7 @@ class ServicioMapas {
     formData.append("juego", juego);
     formData.append("nombre", nombre);
 
-    const response = await fetch("http://localhost:8000/api/imagen-mapas", {
+    const response = await fetch(API_IMAGENES, {
       method: "POST",
       body: formData
     });
