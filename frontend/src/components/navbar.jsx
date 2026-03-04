@@ -4,6 +4,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import servicioAuth from '../services/servicioAuth';
 import './navbar.css';
+import { Link } from 'react-router-dom';
 
 function Navbar({ usuario, onLogout, onIrLogin }) {
     /*
@@ -60,9 +61,9 @@ function Navbar({ usuario, onLogout, onIrLogin }) {
 
             {/* Links de navegación */}
             <ul className={`navbar-links ${menuMovilAbierto ? 'navbar-links--abierto' : ''}`}>
-                <li><a href="#armas" onClick={() => setMenuMovilAbierto(false)}>Armas</a></li>
-                <li><a href="#ventajas" onClick={() => setMenuMovilAbierto(false)}>Ventajas</a></li>
-                <li><a href="#mapas" onClick={() => setMenuMovilAbierto(false)}>Mapas</a></li>
+                <li><Link to="/armas" onClick={() => setMenuMovilAbierto(false)}>Armas</Link></li>
+                <li><Link to="/ventajas" onClick={() => setMenuMovilAbierto(false)}>Ventajas</Link></li>
+                <li><Link to="/mapas" onClick={() => setMenuMovilAbierto(false)}>Mapas</Link></li>
             </ul>
 
             {/* Zona derecha */}
