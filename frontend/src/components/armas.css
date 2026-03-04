@@ -159,6 +159,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
+    align-items: start;
 }
 
 .arma-card {
@@ -169,6 +170,8 @@
     transition: all 0.3s;
     box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .arma-card img {
@@ -231,6 +234,8 @@
     color: #ccc;
     line-height: 1.6;
     margin-top: 0.5rem;
+    height: 175px;
+    overflow-y: auto;
 }
 
 .game-tags {
