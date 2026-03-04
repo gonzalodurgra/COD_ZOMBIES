@@ -19,6 +19,8 @@ function Navbar({ usuario, onLogout, onIrLogin }) {
     const esInvitado = !usuario;
     const esAdmin = usuario?.es_admin === true;
 
+    const [menuMovilAbierto, setMenuMovilAbierto] = useState(false);
+
     // Cerrar dropdown al hacer clic fuera
     useEffect(() => {
         const handleClickFuera = (e) => {
