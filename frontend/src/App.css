@@ -39,9 +39,9 @@ body {
   background: linear-gradient(to right, var(--zombie-blue), var(--zombie-blue-dark));
   border-bottom: 2px solid var(--zombie-green);
   box-shadow: 0 10px 50px var(--zombie-green-glow);
-  position: sticky;
+  /* position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 50; */
   backdrop-filter: blur(8px);
 }
 
@@ -61,7 +61,7 @@ body {
   font-size: 2.5rem;
   font-weight: bold;
   color: var(--zombie-green);
-  text-shadow: 
+  text-shadow:
     0 0 10px var(--zombie-green-glow),
     0 0 20px var(--zombie-green-glow),
     0 0 30px var(--zombie-green-glow);
@@ -124,7 +124,7 @@ body {
   border: 2px solid var(--zombie-green);
   border-radius: 1rem;
   padding: 3rem 2rem;
-  box-shadow: 
+  box-shadow:
     0 0 30px var(--zombie-green-glow),
     inset 0 0 20px rgba(0, 255, 136, 0.1);
 }
@@ -133,7 +133,7 @@ body {
   font-size: 2.25rem;
   font-weight: bold;
   color: var(--zombie-green);
-  text-shadow: 
+  text-shadow:
     0 0 10px var(--zombie-green-glow),
     0 0 20px var(--zombie-green-glow);
   margin-bottom: 1.5rem;
@@ -209,6 +209,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -222,11 +223,11 @@ body {
   .nav-title {
     font-size: 3rem;
   }
-  
+
   .nav-subtitle {
     font-size: 1rem;
   }
-  
+
   .nav-links {
     flex-direction: row;
   }
@@ -244,7 +245,7 @@ body {
   .nav-container {
     padding: 0 2rem;
   }
-  
+
   .nav-title {
     font-size: 3.75rem;
   }

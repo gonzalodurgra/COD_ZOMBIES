@@ -48,11 +48,19 @@ function Navbar({ usuario, onLogout, onIrLogin }) {
             {/* Logo */}
             <span className="navbar-logo">🧟 COD ZOMBIES</span>
 
+            <button
+                className="navbar-hamburger"
+                onClick={() => setMenuMovilAbierto(v => !v)}
+                aria-label="Menú"
+            >
+                {menuMovilAbierto ? '✕' : '☰'}
+            </button>
+
             {/* Links de navegación */}
-            <ul className="navbar-links">
-                <li><a href="#armas">Armas</a></li>
-                <li><a href="#ventajas">Ventajas</a></li>
-                <li><a href="#mapas">Mapas</a></li>
+            <ul className={`navbar-links ${menuMovilAbierto ? 'navbar-links--abierto' : ''}`}>
+                <li><a href="#armas" onClick={() => setMenuMovilAbierto(false)}>Armas</a></li>
+                <li><a href="#ventajas" onClick={() => setMenuMovilAbierto(false)}>Ventajas</a></li>
+                <li><a href="#mapas" onClick={() => setMenuMovilAbierto(false)}>Mapas</a></li>
             </ul>
 
             {/* Zona derecha */}
