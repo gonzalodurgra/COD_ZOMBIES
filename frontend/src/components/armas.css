@@ -177,6 +177,8 @@
 .arma-card img {
     background-size: cover;
     object-fit: contain;
+    height: 150px;
+    width: 100%;
 }
 
 .arma-card:hover {
