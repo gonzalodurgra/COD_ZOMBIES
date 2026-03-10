@@ -18,6 +18,8 @@ function Armas({ usuario }) {
     const [modoEdicion, setModoEdicion] = useState(false);
     const [mostrarPAP, setMostrarPAP] = useState(false);
     const [tienePAP, setTienePAP] = useState(false);
+    const [dañoInfinito, setDañoInfinito] = useState(false)
+    const [municionInfinita, setMunicionInfinita] = useState(false)
 
     const [armaActual, setArmaActual] = useState({
         nombre: '',
@@ -80,6 +82,8 @@ function Armas({ usuario }) {
 
     const abrirFormularioCreacion = () => {
         setModoEdicion(false);
+        setDañoInfinito(false);
+        setMunicionInfinita(false);
         setArmaActual({
             nombre: '',
             tipo: 'fusil de asalto',
@@ -109,6 +113,8 @@ function Armas({ usuario }) {
         console.log('🔍 papNombre:', arma.papNombre);   // ¿Es null, undefined o tiene valor?
         console.log('🔍 mostrarPAP será:', !!arma.papNombre);
         setModoEdicion(true);
+        setDañoInfinito(arma.daño == "infinito");
+        setMunicionInfinita(arma.reserva == "infinito")
         setArmaActual({
             ...arma,
             papMultiplicadores: arma.papMultiplicadores ?? { cabeza: 4, torso: 1.5, abdomen: 1 },
@@ -237,6 +243,9 @@ function Armas({ usuario }) {
                 armaParaGuardar.imagen = resultadoImagen.ruta;
             }
 
+            // Aplicar valores infinitos si los checkboxes están marcados
+            if (dañoInfinito) armaParaGuardar.daño = 'infinito';
+            if (municionInfinita) armaParaGuardar.reserva = 'infinito';
             // DEPURACIÓN: Ver qué datos vamos a enviar
             console.log('📤 Datos a enviar:', armaParaGuardar);
             console.log('📋 Tipos de datos:', {
@@ -489,14 +498,23 @@ function Armas({ usuario }) {
                         </div>
                         {/* Daño */}
                         <div className='form-group'>
-                            <label htmlFor="daño">Daño estándar *</label>
-                            <input
-                                type="number"
-                                id="daño"
-                                value={armaActual.daño}
-                                onChange={manejarInputCambio}
-                                required
-                            />
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={dañoInfinito}
+                                    onChange={(e) => setDañoInfinito(e.target.checked)}
+                                />
+                                {' '} Daño infinito
+                            </label>
+                            {!dañoInfinito && (
+                                <input
+                                    type="number"
+                                    id="daño"
+                                    value={armaActual.daño === 'infinito' ? 0 : armaActual.daño}
+                                    onChange={manejarInputCambio}
+                                    required={!dañoInfinito}
+                                />
+                            )}
                         </div>
 
                         {/* Multiplicadores base */}
@@ -530,7 +548,24 @@ function Armas({ usuario }) {
                             </div>
                             <div>
                                 <label htmlFor="reserva">Reserva *</label>
-                                <input type="number" id="reserva" value={armaActual.reserva} onChange={manejarInputCambio} min="0" required />
+                                <label style={{ fontSize: '0.8rem', color: '#aaa' }}>
+                                    <input
+                                        type="checkbox"
+                                        checked={municionInfinita}
+                                        onChange={(e) => setMunicionInfinita(e.target.checked)}
+                                    />
+                                    {' '} Infinita
+                                </label>
+                                {!municionInfinita && (
+                                    <input
+                                        type="number"
+                                        id="reserva"
+                                        value={armaActual.reserva === 'infinito' ? 0 : armaActual.reserva}
+                                        onChange={manejarInputCambio}
+                                        min="0"
+                                        required={!municionInfinita}
+                                    />
+                                )}
                             </div>
                             <div>
                                 <label htmlFor="cadencia">Cadencia *</label>

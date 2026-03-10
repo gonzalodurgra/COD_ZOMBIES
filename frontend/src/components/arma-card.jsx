@@ -58,8 +58,8 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 </div>
 
                 <div className="info-row">
-                    <span className="label">Cargador:</span>
-                    <span className="value">{cargador}</span>
+                    <span className="label">Daño:</span>
+                    <span className="value">{daño === 'infinito' ? '∞' : daño}</span>
                 </div>
 
                 <div className="info-row">
@@ -71,20 +71,20 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 <div className="stats-bar">
                     <div
                         className="stats-fill"
-                        style={{ width: `${(capacidadCampeo / capacidadCampeoMaxima) * 100}%` }}
+                        style={{ width: `${daño == "infinito" ? (capacidadCampeo / capacidadCampeoMaxima) * 100 : 100}%` }}
                     ></div>
                 </div>
 
                 <div className="info-row">
                     <span className="label">Reserva:</span>
-                    <span className="value">{reserva}</span>
+                    <span className="value">{reserva === 'infinito' ? '∞' : reserva}</span>
                 </div>
 
                 {/* Barra: Eficiencia */}
                 <div className="stats-bar">
                     <div
                         className="stats-fill"
-                        style={{ width: `${(eficiencia / eficienciaMaximo) * 100}%` }}
+                        style={{ width: `${daño == "infinito" || reserva == "infinito" ? (eficiencia / eficienciaMaximo) * 100 : 100}%` }}
                     ></div>
                 </div>
 
@@ -97,7 +97,7 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 <div className="stats-bar">
                     <div
                         className="stats-fill"
-                        style={{ width: `${(dps / dpsMaximo) * 100}%` }}
+                        style={{ width: `${daño == "infinito" ? (dps / dpsMaximo) * 100 : 100}%` }}
                     ></div>
                 </div>
 
