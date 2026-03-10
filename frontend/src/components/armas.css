@@ -436,6 +436,61 @@
     box-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
 }
 
+.toggle-label-normal {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #00cc00;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    /* Quitamos el display:block que hereda de .form-group label */
+    margin-bottom: 0 !important;
+}
+
+/* Ocultamos el checkbox nativo para usar uno personalizado */
+.toggle-label-normal input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 50px;
+    height: 26px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00cc00;
+    border-radius: 13px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+    /* Anulamos el width: 100% heredado de .form-group input */
+    min-width: 50px;
+    max-width: 50px;
+    padding: 0;
+}
+
+/* La bolita del toggle */
+.toggle-label-normal input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #00cc00;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+}
+
+/* Cuando está activado */
+.toggle-label-normal input[type="checkbox"]:checked {
+    background: rgba(0, 180, 0, 0.3);
+    border-color: #00cc00;
+}
+
+.toggle-label-normal input[type="checkbox"]:checked::before {
+    left: 26px;
+    box-shadow: 0 0 10px rgba(0, 180, 0, 0.8);
+}
+
 /* ========================================
    SECCIÓN PAP
 ======================================== */

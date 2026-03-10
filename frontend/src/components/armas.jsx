@@ -18,8 +18,10 @@ function Armas({ usuario }) {
     const [modoEdicion, setModoEdicion] = useState(false);
     const [mostrarPAP, setMostrarPAP] = useState(false);
     const [tienePAP, setTienePAP] = useState(false);
-    const [dañoInfinito, setDañoInfinito] = useState(false)
-    const [municionInfinita, setMunicionInfinita] = useState(false)
+    const [dañoInfinito, setDañoInfinito] = useState(false);
+    const [municionInfinita, setMunicionInfinita] = useState(false);
+    const [dañoPapInfinito, setDañoPapInfinito] = useState(false);
+    const [reservaPapInfinita, setReservaPapInfinita] = useState(false)
 
     const [armaActual, setArmaActual] = useState({
         nombre: '',
@@ -114,7 +116,9 @@ function Armas({ usuario }) {
         console.log('🔍 mostrarPAP será:', !!arma.papNombre);
         setModoEdicion(true);
         setDañoInfinito(arma.daño == "infinito");
-        setMunicionInfinita(arma.reserva == "infinito")
+        setMunicionInfinita(arma.reserva == "infinito");
+        setDañoPapInfinito(arma.papDaño == "infinito");
+        setReservaPapInfinita(arma.papReserva == "infinito")
         setArmaActual({
             ...arma,
             papMultiplicadores: arma.papMultiplicadores ?? { cabeza: 4, torso: 1.5, abdomen: 1 },
@@ -498,7 +502,7 @@ function Armas({ usuario }) {
                         </div>
                         {/* Daño */}
                         <div className='form-group'>
-                            <label>
+                            <label className='toggle-label-normal'>
                                 <input
                                     type="checkbox"
                                     checked={dañoInfinito}
@@ -548,7 +552,7 @@ function Armas({ usuario }) {
                             </div>
                             <div>
                                 <label htmlFor="reserva">Reserva *</label>
-                                <label style={{ fontSize: '0.8rem', color: '#aaa' }}>
+                                <label className='toggle-label-normal' style={{ fontSize: '0.8rem', color: '#aaa' }}>
                                     <input
                                         type="checkbox"
                                         checked={municionInfinita}
@@ -625,14 +629,23 @@ function Armas({ usuario }) {
 
                                 {/* Daño PAP */}
                                 <div className='form-group'>
-                                    <label htmlFor="papDaño">Daño PAP *</label>
-                                    <input
-                                        type="number"
-                                        id="papDaño"
-                                        value={armaActual.papDaño}
-                                        onChange={manejarInputCambio}
-                                        required={mostrarPAP}
-                                    />
+                                    <label className='toggle-label'>
+                                        <input
+                                            type="checkbox"
+                                            checked={dañoPapInfinito}
+                                            onChange={(e) => setDañoPapInfinito(e.target.checked)}
+                                        />
+                                        {' '} Daño infinito
+                                    </label>
+                                    {!dañoPapInfinito && (
+                                        <input
+                                            type="number"
+                                            id="papDaño"
+                                            value={armaActual.papDaño === 'infinito' ? 0 : armaActual.papDaño}
+                                            onChange={manejarInputCambio}
+                                            required={!dañoInfinito}
+                                        />
+                                    )}
                                 </div>
 
                                 {/* Multiplicadores PAP */}
@@ -666,8 +679,25 @@ function Armas({ usuario }) {
                                         <input type="number" id="papCargador" value={armaActual.papCargador} onChange={manejarInputCambio} min="1" required={mostrarPAP} />
                                     </div>
                                     <div>
-                                        <label htmlFor="papReserva">Reserva PAP *</label>
-                                        <input type="number" id="papReserva" value={armaActual.papReserva} onChange={manejarInputCambio} min="0" required={mostrarPAP} />
+                                        <label htmlFor="papReserva">Reserva *</label>
+                                        <label className='toggle-label' style={{ fontSize: '0.8rem', color: '#aaa' }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={reservaPapInfinita}
+                                                onChange={(e) => setReservaPapInfinita(e.target.checked)}
+                                            />
+                                            {' '} Infinita
+                                        </label>
+                                        {!reservaPapInfinita && (
+                                            <input
+                                                type="number"
+                                                id="papReserva"
+                                                value={armaActual.papReserva === 'infinito' ? 0 : armaActual.papReserva}
+                                                onChange={manejarInputCambio}
+                                                min="0"
+                                                required={!municionInfinita}
+                                            />
+                                        )}
                                     </div>
                                     <div>
                                         <label htmlFor="papCadencia">Cadencia PAP *</label>
