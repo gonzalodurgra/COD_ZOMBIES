@@ -54,11 +54,6 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
 
                 <div className="info-row">
                     <span className="label">Daño:</span>
-                    <span className="value">{daño}</span>
-                </div>
-
-                <div className="info-row">
-                    <span className="label">Daño:</span>
                     <span className="value">{daño === 'infinito' ? '∞' : daño}</span>
                 </div>
 
@@ -71,7 +66,7 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 <div className="stats-bar">
                     <div
                         className="stats-fill"
-                        style={{ width: `${daño == "infinito" ? (capacidadCampeo / capacidadCampeoMaxima) * 100 : 100}%` }}
+                        style={{ width: `${daño != "infinito" ? (capacidadCampeo / capacidadCampeoMaxima) * 100 : 100}%` }}
                     ></div>
                 </div>
 
@@ -84,7 +79,7 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 <div className="stats-bar">
                     <div
                         className="stats-fill"
-                        style={{ width: `${daño == "infinito" || reserva == "infinito" ? (eficiencia / eficienciaMaximo) * 100 : 100}%` }}
+                        style={{ width: `${daño != "infinito" && reserva != "infinito" ? (eficiencia / eficienciaMaximo) * 100 : 100}%` }}
                     ></div>
                 </div>
 
@@ -97,7 +92,7 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 <div className="stats-bar">
                     <div
                         className="stats-fill"
-                        style={{ width: `${daño == "infinito" ? (dps / dpsMaximo) * 100 : 100}%` }}
+                        style={{ width: `${daño != "infinito" ? (dps / dpsMaximo) * 100 : 100}%` }}
                     ></div>
                 </div>
 
