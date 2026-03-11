@@ -2,6 +2,7 @@
 // Servicio para manejar todas las peticiones a la API de mapas
 
 const BASE = process.env.REACT_APP_API_BASE;
+console.log(process.env)
 const API_URL = `${BASE}/api/mapas`;
 const API_IMAGENES = `${BASE}/api/imagen-mapas`
 

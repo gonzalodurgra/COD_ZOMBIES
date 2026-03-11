@@ -5,6 +5,7 @@
 // En desarrollo: usa la variable de entorno o localhost
 // En producción: Render configurará automáticamente la URL
 const BASE = process.env.REACT_APP_API_BASE;
+console.log(process.env)
 const API_URL = `${BASE}/api/armas`;
 const API_IMAGENES = `${BASE}/api/imagen-armas`
 
