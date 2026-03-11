@@ -1,7 +1,7 @@
 // src/services/perksService.js
 // Servicio para manejar todas las peticiones a la API de ventajas (perks)
 
-const BASE = import.meta.env.VITE_API_BASE;
+const BASE = process.env.REACT_APP_API_BASE;
 const API_URL = `${BASE}/api/ventajas`;
 const API_IMAGENES = `${BASE}/api/imagen-ventajas`
 

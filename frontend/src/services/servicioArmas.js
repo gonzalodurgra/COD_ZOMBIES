@@ -4,7 +4,7 @@
 // PASO 1: Configurar la URL base de la API
 // En desarrollo: usa la variable de entorno o localhost
 // En producción: Render configurará automáticamente la URL
-const BASE = import.meta.env.VITE_API_BASE;
+const BASE = process.env.REACT_APP_API_BASE;
 const API_URL = `${BASE}/api/armas`;
 const API_IMAGENES = `${BASE}/api/imagen-armas`
 

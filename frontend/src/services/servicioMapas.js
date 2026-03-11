@@ -1,7 +1,7 @@
 // src/services/servicioMapas.js
 // Servicio para manejar todas las peticiones a la API de mapas
 
-const BASE = import.meta.env.VITE_API_BASE;
+const BASE = process.env.REACT_APP_API_BASE;
 const API_URL = `${BASE}/api/mapas`;
 const API_IMAGENES = `${BASE}/api/imagen-mapas`
 
