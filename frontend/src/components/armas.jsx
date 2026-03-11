@@ -250,6 +250,8 @@ function Armas({ usuario }) {
             // Aplicar valores infinitos si los checkboxes están marcados
             if (dañoInfinito) armaParaGuardar.daño = 'infinito';
             if (municionInfinita) armaParaGuardar.reserva = 'infinito';
+            if (dañoPapInfinito) armaParaGuardar.papDaño = 'infinito';
+            if (reservaPapInfinita) armaParaGuardar.papReserva = 'infinito';
             // DEPURACIÓN: Ver qué datos vamos a enviar
             console.log('📤 Datos a enviar:', armaParaGuardar);
             console.log('📋 Tipos de datos:', {
@@ -695,7 +697,7 @@ function Armas({ usuario }) {
                                                 value={armaActual.papReserva === 'infinito' ? 0 : armaActual.papReserva}
                                                 onChange={manejarInputCambio}
                                                 min="0"
-                                                required={!municionInfinita}
+                                                required={!reservaPapInfinita}
                                             />
                                         )}
                                     </div>
