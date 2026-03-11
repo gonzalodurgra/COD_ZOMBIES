@@ -1,7 +1,7 @@
 // src/services/servicioAuth.js
 // Servicio para manejar autenticación (login, registro, sesión)
 
-const BASE = process.env.REACT_APP_API_BASE;
+const BASE = import.meta.env.VITE_API_BASE;
 const AUTH_URL = `${BASE}/auth`;
 
 class ServicioAuth {
