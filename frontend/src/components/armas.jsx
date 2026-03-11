@@ -336,22 +336,21 @@ function Armas({ usuario }) {
     // };
 
     const capacidadCampeoMaxima = armasFiltradas.reduce((max, a) => {
-        // Para cada arma, elegimos los datos correctos (PAP si existen, base si no)
         const daño = a.papDaño ?? a.daño;
         const cargador = a.papCargador ?? a.cargador;
         const recarga = a.papRecarga ?? a.recarga;
         const mults = a.papMultiplicadores ?? a.multiplicadores;
-
+        if (daño === 'infinito') return max; // ← ignorar armas infinitas
         const valor = ((cargador * daño * mults.cabeza) + (cargador * daño * mults.torso)) / recarga / 4;
         return Math.max(max, valor);
     }, 0);
 
     const eficienciaMaximo = armasFiltradas.reduce((max, a) => {
         const daño = a.papDaño ?? a.daño;
-        const cargador = a.papCargador ?? a.cargador;
         const reserva = a.papReserva ?? a.reserva;
+        const cargador = a.papCargador ?? a.cargador;
         const mults = a.papMultiplicadores ?? a.multiplicadores;
-
+        if (daño === 'infinito' || reserva === 'infinito') return max; // ← ignorar
         const valor = ((daño * mults.cabeza) + (daño * mults.torso)) * (reserva + cargador) / 4;
         return Math.max(max, valor);
     }, 0);
@@ -360,7 +359,7 @@ function Armas({ usuario }) {
         const daño = a.papDaño ?? a.daño;
         const cadencia = a.papCadencia ?? a.cadencia;
         const mults = a.papMultiplicadores ?? a.multiplicadores;
-
+        if (daño === 'infinito') return max; // ← ignorar
         const valor = ((daño * cadencia * mults.cabeza) + (daño * cadencia * mults.torso)) / 4;
         return Math.max(max, valor);
     }, 0);

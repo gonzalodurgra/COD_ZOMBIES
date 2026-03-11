@@ -4,8 +4,9 @@
 // PASO 1: Configurar la URL base de la API
 // En desarrollo: usa la variable de entorno o localhost
 // En producción: Render configurará automáticamente la URL
-const API_URL = "https://codzombies-api.onrender.com/api/armas" || 'http://localhost:8000/api/armas';
-const API_IMAGENES = "https://codzombies-api.onrender.com/api/imagen-armas" || 'http://localhost:8000/api/imagen-armas'
+const BASE = process.env.REACT_APP_API_BASE;
+const API_URL = `${BASE}/api/armas`;
+const API_IMAGENES = `${BASE}/api/imagen-armas`
 
 // PASO 2: Clase para manejar todas las operaciones de armas
 class ServicioArmas {
@@ -18,6 +19,7 @@ class ServicioArmas {
     - await espera a que la promesa se resuelva
     - .json() convierte la respuesta a formato JSON
     */
+    console.log('URL que se está usando:', API_URL); // 👈 agrega esto
     try {
       const response = await fetch(API_URL);
 

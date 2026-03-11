@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
+import uvicorn
 
 # Importar las funciones de conexión a MongoDB
 from app.database import conectar_mongo, cerrar_conexion
