@@ -57,12 +57,11 @@ app.add_middleware(
 )
 
 BASE_DIR_DEV = Path(__file__).resolve().parent.parent.parent / "frontend" / "public"
-BASE_DIR_PROD = Path("/frontend") / "public"
+BASE_DIR_PROD = Path("/usr/share/nginx/html")
+
+IMG_DIR = BASE_DIR_DEV / "img" if (BASE_DIR_DEV / "img").exists() else BASE_DIR_PROD / "img"
 # Esto permite que FastAPI sirva las imágenes guardadas
-try:
-    app.mount("/img", StaticFiles(directory=BASE_DIR_DEV / "img"), name="imagenes")
-except Exception:
-    app.mount("/img", StaticFiles(directory=BASE_DIR_PROD / "img"), name="imagenes")
+app.mount("/img", StaticFiles(directory=IMG_DIR), name="imagenes")
 
 
 # PASO 4: Incluir las rutas de las diferentes secciones
