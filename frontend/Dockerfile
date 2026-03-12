@@ -1,14 +1,14 @@
 # ====================================================================
-# DOCKERFILE MULTI-STAGE PARA FRONTEND ANGULAR
+# DOCKERFILE MULTI-STAGE PARA FRONTEND REACT
 # ====================================================================
 
 # EXPLICACIÓN DE MULTI-STAGE:
-# - Stage 1 (build): Compila la aplicación Angular
+# - Stage 1 (build): Compila la aplicación React
 # - Stage 2 (production): Sirve los archivos estáticos con Nginx
 # - Resultado: Imagen final muy ligera (solo archivos compilados + Nginx)
 
 # ====================================================================
-# STAGE 1: BUILD DE LA APLICACIÓN ANGULAR
+# STAGE 1: BUILD DE LA APLICACIÓN REACT
 # ====================================================================
 
 FROM node:current-alpine AS build
@@ -37,7 +37,7 @@ RUN npm ci
 # Copiar el código fuente
 COPY . .
 
-# Build de producción de Angular
+# Build de producción de React
 RUN npm run build --configuration frontend
 
 # EXPLICACIÓN:
@@ -68,7 +68,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 # EXPLICACIÓN:
 # - --from=build: copia desde el stage anterior
-# - /war-thunder-frontend/dist/war-thunder-frontend/browser: archivos compilados de Angular 18+
+# - /war-thunder-frontend/dist/war-thunder-frontend/browser: archivos compilados de React
 # - /usr/share/nginx/html: directorio por defecto de Nginx
 
 # Exponer el puerto 80
