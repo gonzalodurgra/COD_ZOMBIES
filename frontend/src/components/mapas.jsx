@@ -41,6 +41,9 @@ function Mapas({ usuario }) {
     const [todasLasVentajas, setTodasLasVentajas] = useState([]);
     const [cargandoExtras, setCargandoExtras] = useState(false);
 
+    // Para abrir el modal
+    const [mapaDetalle, setMapaDetalle] = useState(null);
+
     // ─── Efectos ────────────────────────────────────────────────
     useEffect(() => {
         cargarMapas();
@@ -86,7 +89,7 @@ function Mapas({ usuario }) {
             ]);
             // Filtramos solo las que pertenecen al juego del mapa
             setTodasLasArmas(armas.filter(a => a.juego === juego));
-            setTodasLasVentajas(ventajas.filter(v => v.juego === juego));
+            setTodasLasVentajas(ventajas.filter(v => v.juegos.includes(juego)));
         } catch (err) {
             console.error('Error al cargar armas/ventajas:', err);
         } finally {
@@ -126,7 +129,6 @@ function Mapas({ usuario }) {
     };
 
     const editarMapa = (mapa) => {
-        console.log("Armas del mapa:", JSON.stringify(mapa.armas, null, 2));
         setModoEdicion(true);
         setMapaActual({ ...mapa, imagenFile: null });
         setMostrarFormulario(true);
@@ -225,7 +227,10 @@ function Mapas({ usuario }) {
             if (yaSeleccionada) {
                 return { ...prev, ventajas: prev.ventajas.filter(v => v.ventaja.id !== ventaja.id) };
             } else {
-                return { ...prev, ventajas: [...prev.ventajas, { ventaja }], precio: ventaja.precio };
+                return {
+                    ...prev,
+                    ventajas: [...prev.ventajas, { ventaja, precio: ventaja.precio }]
+                };
             }
         });
     };
@@ -544,7 +549,7 @@ function Mapas({ usuario }) {
             {!cargando && !mostrarFormulario && (
                 <div className="mapas-grid">
                     {mapasFiltrados.map((mapa) => (
-                        <div key={mapa.id} className="mapa-card">
+                        <div key={mapa.id} className="mapa-card" onClick={() => setMapaDetalle(mapa)}>
 
                             {/* Imagen */}
                             <div className="mapa-imagen-wrapper">
@@ -606,6 +611,56 @@ function Mapas({ usuario }) {
                             <p>No se encontraron mapas</p>
                         </div>
                     )}
+                </div>
+            )}
+            {mapaDetalle && (
+                <div className="modal-overlay active" onClick={(e) => e.target === e.currentTarget && setMapaDetalle(null)}>
+                    <div className="modal">
+                        <div className="modal-header">
+                            <div className="modal-header-text">
+                                <h2>{mapaDetalle.nombre}</h2>
+                                <p>{mapaDetalle.descripcion}</p>
+                            </div>
+                            <button className="modal-close" onClick={() => setMapaDetalle(null)}>✕</button>
+                        </div>
+                        <div className="modal-body">
+                            {/* --- ARMAS --- */}
+                            <div className="modal-section">
+                                <div className="section-title">
+                                    Armas <span className="section-count">{mapaDetalle.armas?.length ?? 0}</span>
+                                </div>
+                                <div className="armas-grid">
+                                    {mapaDetalle.armas?.map(({ arma, precio, enCaja }, i) => (
+                                        <div key={i} className="arma-card">
+                                            <div className="arma-nombre">{arma.nombre}</div>
+                                            <div className="arma-imagen">
+                                                <img src={arma.imagen} />
+                                            </div>
+                                            <span className={`arma-origen origen-${enCaja}`}>{enCaja}</span>
+                                            <span className="arma-precio">{precio > 0 ? `${precio.toLocaleString()} pts` : '—'}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            {/* --- VENTAJAS --- */}
+                            <div className="modal-section">
+                                <div className="section-title">
+                                    Ventajas <span className="section-count">{mapaDetalle.ventajas?.length ?? 0}</span>
+                                </div>
+                                <div className="ventajas-grid">
+                                    {mapaDetalle.ventajas?.map(({ ventaja, precio }, i) => (
+                                        <div key={i} className="ventaja-card">
+                                            <div className="ventaja-imagen">
+                                                <img src={ventaja.imagen} />
+                                            </div>
+                                            <div className="ventaja-nombre">{ventaja.nombre}</div>
+                                            <span className="ventaja-precio">{precio?.toLocaleString()} pts</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

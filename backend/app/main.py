@@ -56,7 +56,7 @@ app.add_middleware(
     allow_headers=["*"],  # Permitir todos los headers
 )
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent / "frontend" / "public"
 # Esto permite que FastAPI sirva las imágenes guardadas
 app.mount("/img", StaticFiles(directory=BASE_DIR / "img"), name="imagenes")
 

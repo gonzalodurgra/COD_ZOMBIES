@@ -499,6 +499,298 @@
 }
 
 /* ========================================
+   MODAL
+======================================== */
+
+@keyframes modal-enter {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.modal { animation: modal-enter 0.2s ease-out; }
+
+.modal-overlay {
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.85) 0px,
+        rgba(0,0,0,0.85) 2px,
+        rgba(0,0,0,0.78) 2px,
+        rgba(0,0,0,0.78) 4px
+    );
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal {
+    background: linear-gradient(160deg, #16213e 0%, #0f3460 100%);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1550px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.2);
+    transform: scale(0.92);
+    transition: transform 0.18s;
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+@keyframes pulse-border {
+    0%, 100% { border-bottom-color: rgba(0,255,0,0.15); }
+    50%       { border-bottom-color: rgba(0,255,0,0.45); }
+}
+.modal-header { animation: pulse-border 2.5s ease-in-out infinite; }
+
+.arma-card { border-left: 3px solid transparent; transition: border-color 0.2s; }
+.arma-card.origen-pared   { border-left-color: #6699ff; }
+.arma-card.origen-caja    { border-left-color: #ffaa44; }
+.arma-card.origen-inicial { border-left-color: #44cc88; }
+
+.arma-precio, .ventaja-precio {
+    font-family: var(--font-mono, monospace);
+    letter-spacing: 0.04em;
+    color: #ffd700;
+    text-shadow: 0 0 6px rgba(255,215,0,0.4);
+}
+
+@keyframes modal-exit {
+    to { opacity: 0; transform: scale(0.9); }
+}
+.modal.saliendo { animation: modal-exit 0.15s ease-in forwards; }
+
+.armas-grid, .ventajas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+/* Cabecera sticky */
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.18);
+    position: sticky;
+    top: 0;
+    background: #16213e;
+    z-index: 1;
+}
+
+.modal-header-icon {
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 255, 0, 0.07);
+    border: 1px solid rgba(0, 255, 0, 0.25);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.modal-header-text h2 {
+    color: #00ff00;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.35);
+}
+
+.modal-header-text p {
+    color: #888;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+.modal-close {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #aaa;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.modal-close:hover {
+    background: rgba(231, 76, 60, 0.18);
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.5);
+}
+
+/* Meta badges (dificultad, juego) */
+.modal-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0.85rem 1.25rem 0;
+}
+
+.meta-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    border: 1.5px solid;
+}
+
+/* Cuerpo */
+.modal-body { padding: 0.85rem 1.25rem 1.25rem; }
+
+.modal-section-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #00cc00;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.6rem;
+}
+
+.modal-section-count {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.22);
+    color: #00cc00;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* Filas de armas */
+.arma-row {
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(0, 255, 0, 0.15);
+    border-radius: 7px;
+    padding: 0.6rem 0.85rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.arma-row:hover {
+    background: rgba(0, 255, 0, 0.05);
+    border-color: rgba(0, 255, 0, 0.3);
+}
+
+.arma-origen {
+    text-transform: capitalize;
+}
+
+.arma-nombre { color: #ddd; font-size: 0.88rem; }
+.arma-tipo   { color: #666; font-size: 0.75rem; margin-top: 1px; }
+
+.badge-origen {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+.origen-pared   { background: rgba(51,102,204,0.2);  color: #7799ee; border: 1px solid rgba(51,102,204,0.35); }
+.origen-caja    { background: rgba(200,120,0,0.2);   color: #ffaa44; border: 1px solid rgba(200,120,0,0.35); }
+.origen-inicial { background: rgba(0,160,80,0.2);    color: #44dd88; border: 1px solid rgba(0,160,80,0.35); }
+
+/* Filas de ventajas */
+
+.ventaja-card {
+    background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(15, 52, 96, 0.9) 100%);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+}
+
+.ventaja-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+    border-color: #00ff00;
+}
+
+.ventaja-card img {
+    background-size: cover;
+    object-fit: contain;
+    height: 200px;
+}
+
+.ventaja-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+    background: rgba(0, 255, 0, 0.1);
+    border: 3px solid #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+.ventaja-row {
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(80, 50, 180, 0.25);
+    border-radius: 7px;
+    padding: 0.6rem 0.85rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.ventaja-row:hover {
+    background: rgba(80, 50, 180, 0.08);
+    border-color: rgba(80, 50, 180, 0.45);
+}
+
+.ventaja-dot    { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.ventaja-nombre { color: #ddd; font-size: 0.88rem; }
+.ventaja-efecto { color: #777; font-size: 0.75rem; margin-top: 1px; }
+
+.modal-precio {
+    font-size: 0.8rem;
+    color: #ffd700;
+    font-family: monospace;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+}
+
+.modal-divider {
+    border: none;
+    border-top: 1px solid rgba(0, 255, 0, 0.1);
+    margin: 0.85rem 0;
+}
+
+/* ========================================
    RESPONSIVE
 ======================================== */
 @media (max-width: 768px) {
