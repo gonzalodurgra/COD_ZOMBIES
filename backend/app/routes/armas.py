@@ -63,7 +63,7 @@ async def obtener_todas_armas():
     # Buscar todas las armas en la colección "weapons"
     # .find({}) significa "buscar todo sin filtros"
     armas = []
-    async for arma in db["armas"].find({}):
+    async for arma in db["armas"].find({}).sort([("juego", 1), ("tipo", 1), ("nombre", 1)]):
         armas.append(arma_helper(arma))
     
     return armas

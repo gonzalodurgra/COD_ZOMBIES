@@ -13,8 +13,9 @@ async def subir_imagen_arma(
     if not imagen.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="El archivo debe ser una imagen")
 
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    carpeta = BASE_DIR / f"img/{juego.upper()}"
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+    carpeta = BASE_DIR / f"frontend/public/img/{juego.upper()}"
+    print(f"Carpeta: {carpeta}")
     carpeta.mkdir(parents=True, exist_ok=True)
 
     extension = imagen.filename.split(".")[-1]
