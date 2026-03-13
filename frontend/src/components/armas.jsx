@@ -49,6 +49,9 @@ function Armas({ usuario }) {
         papRecarga: 2
     });
 
+    const ARMAS_POR_PAGINA = 12;
+    const [paginaActual, setPaginaActual] = useState(1);
+
     // Cargar armas al montar el componente
     useEffect(() => {
         cargarArmas();
@@ -73,12 +76,16 @@ function Armas({ usuario }) {
 
     const filtrarTipo = (tipo) => {
         setTipoSeleccionado(tipo);
-
+        setPaginaActual(1);
         if (tipo === 'all') {
             setArmasFiltradas(armas);
-        } else {
-            const filtradas = armas.filter(weapon => weapon.tipo === tipo);
+        } else if (tipo != 'normal') {
+            const filtradas = armas.filter(arma => arma.tipo === tipo);
             setArmasFiltradas(filtradas);
+        }
+        else {
+            const filtradas = armas.filter(arma => arma.tipo != "maravillosa")
+            setArmasFiltradas(filtradas)
         }
     };
 
@@ -364,6 +371,10 @@ function Armas({ usuario }) {
         return Math.max(max, valor);
     }, 0);
 
+    const totalPaginas = Math.ceil(armasFiltradas.length / ARMAS_POR_PAGINA);
+    const indiceInicio = (paginaActual - 1) * ARMAS_POR_PAGINA;
+    const armasPagina = armasFiltradas.slice(indiceInicio, indiceInicio + ARMAS_POR_PAGINA);
+
     // Renderizar componente con TailwindCSS
     return (
         <div className="contenedor-armas">
@@ -407,6 +418,8 @@ function Armas({ usuario }) {
                     <option value="pistola">Pistola</option>
                     <option value="lanzacohetes">Lanzacohetes</option>
                     <option value="especial">Especial</option>
+                    <option value="maravillosa">Maravillosa</option>
+                    <option value="normal">Normal</option>
                 </select>
             </div>
 
@@ -422,7 +435,7 @@ function Armas({ usuario }) {
             {!cargando && !mostrarFormulario && (
                 <div className="armas-grid">
                     {
-                        armasFiltradas.map((arma) => (
+                        armasPagina.map((arma) => (
                             <ArmaCard
                                 usuario={usuario}
                                 key={arma.id}
@@ -441,6 +454,51 @@ function Armas({ usuario }) {
                             <p>No se encontraron armas</p>
                         </div>
                     )}
+                </div>
+            )}
+            {/* Paginación */}
+            {totalPaginas > 1 && (
+                <div className="paginacion-contenedor">
+                    <p className="paginacion-info">
+                        Mostrando {indiceInicio + 1}–{Math.min(indiceInicio + ARMAS_POR_PAGINA, armasFiltradas.length)} de {armasFiltradas.length} armas
+                    </p>
+                    <div className="paginacion">
+                        <button
+                            className="btn-pag"
+                            onClick={() => setPaginaActual(p => p - 1)}
+                            disabled={paginaActual === 1}
+                        >
+                            ← Ant
+                        </button>
+
+                        {Array.from({ length: totalPaginas }, (_, i) => i + 1)
+                            .filter(p => p === 1 || p === totalPaginas || Math.abs(p - paginaActual) <= 1)
+                            .reduce((acc, p, idx, arr) => {
+                                if (idx > 0 && p - arr[idx - 1] > 1) acc.push('...');
+                                acc.push(p);
+                                return acc;
+                            }, [])
+                            .map((p, i) =>
+                                p === '...'
+                                    ? <span key={`dots-${i}`} className="btn-pag btn-pag--puntos">…</span>
+                                    : <button
+                                        key={p}
+                                        className={`btn-pag${p === paginaActual ? ' btn-pag--activa' : ''}`}
+                                        onClick={() => setPaginaActual(p)}
+                                    >
+                                        {p}
+                                    </button>
+                            )
+                        }
+
+                        <button
+                            className="btn-pag"
+                            onClick={() => setPaginaActual(p => p + 1)}
+                            disabled={paginaActual === totalPaginas}
+                        >
+                            Sig →
+                        </button>
+                    </div>
                 </div>
             )}
 
@@ -478,6 +536,7 @@ function Armas({ usuario }) {
                                     <option value="pistola">Pistola</option>
                                     <option value="lanzacohetes">Lanzacohetes</option>
                                     <option value="especial">Especial</option>
+                                    <option value="maravillosa">Maravillosa</option>
                                 </select>
                             </div>
                         </div>

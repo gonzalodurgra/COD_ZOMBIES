@@ -23,6 +23,6 @@ async def subir_imagen(imagen: UploadFile = File(...), juego: str = Form(...), n
 
     # Devuelve la ruta **relativa al frontend**
     return {
-        "ruta": f"/img/mapas/{juego.upper()}/{nombre_imagen}",
+        "ruta": f"./img/MAPAS/{juego.upper()}/{nombre_imagen}",
         "mensaje": "Imagen subida exitosamente"
     }

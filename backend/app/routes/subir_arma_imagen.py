@@ -28,5 +28,5 @@ async def subir_imagen_arma(
         shutil.copyfileobj(imagen.file, buffer)
 
     return {
-        "ruta": f"/img/{juego.upper()}/{nombre_final}"
+        "ruta": f"./img/{juego.upper()}/{nombre_final}"
     }
