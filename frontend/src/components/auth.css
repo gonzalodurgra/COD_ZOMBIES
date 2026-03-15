@@ -1,19 +1,18 @@
 /* src/components/auth.css */
-/* Estilos para Login y Registro - COD Zombies Theme */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 /* =============================================
-   VARIABLES (misma paleta que el resto de la web)
+   VARIABLES
    ============================================= */
 :root {
     --zombies-bg: #0a0a0a;
     --zombies-surface: #111111;
     --zombies-card: #1a1a1a;
     --zombies-border: #2a2a2a;
-    --zombies-green: #39ff14;
-    --zombies-green-dim: rgba(57, 255, 20, 0.15);
-    --zombies-green-glow: rgba(57, 255, 20, 0.4);
+    --zombies-green: #ff6a00;
+    --zombies-green-dim: rgba(255, 106, 0, 0.15);
+    --zombies-green-glow: rgba(255, 106, 0, 0.4);
     --zombies-red: #ff2020;
     --zombies-red-dim: rgba(255, 32, 32, 0.15);
     --zombies-gold: #c8a84b;
@@ -30,7 +29,7 @@
     min-height: 100vh;
     background-color: var(--zombies-bg);
     background-image:
-        radial-gradient(ellipse at 20% 50%, rgba(57, 255, 20, 0.04) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 50%, rgba(255, 106, 0, 0.05) 0%, transparent 60%),
         radial-gradient(ellipse at 80% 20%, rgba(255, 32, 32, 0.04) 0%, transparent 50%),
         repeating-linear-gradient(0deg,
             transparent,
@@ -214,7 +213,7 @@
 }
 
 .auth-btn:hover:not(:disabled) {
-    background: #50ff25;
+    background: #ff8c30;
     box-shadow: 0 0 20px var(--zombies-green-glow);
 }
 
@@ -228,7 +227,7 @@
 }
 
 /* =============================================
-   PIE DEL FORMULARIO (enlace a la otra vista)
+   PIE DEL FORMULARIO
    ============================================= */
 .auth-footer {
     padding: 1.25rem 2rem;
@@ -253,7 +252,7 @@
 }
 
 .auth-link:hover {
-    color: #50ff25;
+    color: #ff8c30;
 }
 
 /* =============================================

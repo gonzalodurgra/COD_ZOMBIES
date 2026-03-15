@@ -6,9 +6,9 @@
     --zom-surface: #111111;
     --zom-card: #1a1a1a;
     --zom-border: #2a2a2a;
-    --zom-green: #39ff14;
-    --zom-green-dim: rgba(57, 255, 20, 0.12);
-    --zom-green-glow: rgba(57, 255, 20, 0.35);
+    --zom-green: #ff6a00;
+    --zom-green-dim: rgba(255, 106, 0, 0.12);
+    --zom-green-glow: rgba(255, 106, 0, 0.35);
     --zom-red: #ff2020;
     --zom-red-dim: rgba(255, 32, 32, 0.12);
     --zom-gold: #c8a84b;
@@ -36,7 +36,7 @@
     font-family: var(--font-body);
 }
 
-/* Línea verde superior */
+/* Línea naranja superior */
 .navbar::before {
     content: '';
     position: absolute;
@@ -131,7 +131,7 @@
     padding: 0.2rem 0.6rem;
 }
 
-/* Botón "Iniciar sesión" visible para invitados */
+/* Botón "Iniciar sesión" */
 .navbar-login-btn {
     font-family: var(--font-body);
     font-size: 0.8rem;
@@ -147,7 +147,7 @@
 }
 
 .navbar-login-btn:hover {
-    background: #50ff25;
+    background: #ff8c30;
     box-shadow: 0 0 14px var(--zom-green-glow);
 }
 
@@ -238,7 +238,7 @@
     border-top: 2px solid var(--zom-green);
     z-index: 200;
     animation: dropdownIn 0.15s ease;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
 }
 
 @keyframes dropdownIn {
@@ -376,10 +376,8 @@
 
     .navbar-hamburger {
         display: block;
-        /* Visible en móvil */
     }
 
-    /* Links ocultos por defecto en móvil */
     .navbar-links {
         display: none;
         width: 100%;
@@ -389,7 +387,6 @@
         margin-top: 0.25rem;
     }
 
-    /* Links visibles cuando el menú está abierto */
     .navbar-links--abierto {
         display: flex;
     }
@@ -402,17 +399,14 @@
 
     .navbar-links a::after {
         display: none;
-        /* Quitar la línea animada en móvil */
     }
 
-    /* El perfil se queda en la misma fila que el logo y hamburguesa */
     .navbar-right {
         margin-left: auto;
     }
 
     .guest-badge {
         display: none;
-        /* Ocultar en móvil para ahorrar espacio */
     }
 
     .profile-dropdown {

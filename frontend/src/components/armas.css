@@ -1,4 +1,4 @@
-/* src/app/components/armas/armas.css */
+/* src/components/armas.css */
 
 /* ========================================
    CONTENEDOR PRINCIPAL
@@ -7,7 +7,7 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
     min-height: 100vh;
     color: #fff;
 }
@@ -21,16 +21,16 @@
     align-items: center;
     margin-bottom: 2rem;
     padding: 1rem;
-    background: linear-gradient(90deg, #16213e 0%, #0f3460 100%);
+    background: linear-gradient(90deg, #1a1a1a 0%, #0d0d0d 100%);
     border-radius: 10px;
-    border: 2px solid #00ff00;
-    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.3);
+    border: 2px solid #ff6a00;
+    box-shadow: 0 4px 20px rgba(255, 106, 0, 0.3);
 }
 
 .cabecera-armas h1 {
     font-size: 2rem;
-    color: #00ff00;
-    text-shadow: 0 0 10px #00ff00;
+    color: #ff6a00;
+    text-shadow: 0 0 10px rgba(255, 106, 0, 0.6);
     margin: 0;
 }
 
@@ -38,7 +38,7 @@
    BOTONES
 ======================================== */
 .btn-crear {
-    background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+    background: linear-gradient(135deg, #ff6a00 0%, #e55a00 100%);
     color: #000;
     border: none;
     padding: 0.8rem 1.5rem;
@@ -46,12 +46,12 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.3);
 }
 
 .btn-crear:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.5);
 }
 
 .btn-edit {
@@ -106,8 +106,8 @@
 }
 
 .spinner {
-    border: 4px solid rgba(0, 255, 0, 0.3);
-    border-top: 4px solid #00ff00;
+    border: 4px solid rgba(255, 106, 0, 0.3);
+    border-top: 4px solid #ff6a00;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -115,13 +115,8 @@
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* ========================================
@@ -133,19 +128,19 @@
     align-items: center;
     margin-bottom: 2rem;
     padding: 1rem;
-    background: rgba(15, 52, 96, 0.5);
+    background: rgba(26, 26, 26, 0.8);
     border-radius: 5px;
 }
 
 .contenedor-filtro label {
-    color: #00ff00;
+    color: #ff6a00;
     font-weight: bold;
 }
 
 .filtro-select {
-    background: rgba(15, 52, 96, 0.9);
-    color: #00ff00;
-    border: 2px solid #00ff00;
+    background: rgba(20, 20, 20, 0.9);
+    color: #ff6a00;
+    border: 2px solid #ff6a00;
     padding: 0.7rem 1rem;
     border-radius: 5px;
     font-size: 1rem;
@@ -163,12 +158,12 @@
 }
 
 .arma-card {
-    background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(15, 52, 96, 0.9) 100%);
-    border: 2px solid #00ff00;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
+    border: 2px solid #ff6a00;
     border-radius: 10px;
     padding: 1.5rem;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.15);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -183,14 +178,14 @@
 
 .arma-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 106, 0, 0.35);
 }
 
 .arma-card h3 {
-    color: #00ff00;
+    color: #ff6a00;
     margin-bottom: 1rem;
     font-size: 1.4rem;
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    text-shadow: 0 0 5px rgba(255, 106, 0, 0.4);
 }
 
 .arma-info {
@@ -203,7 +198,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 5px;
 }
 
@@ -213,7 +208,7 @@
 }
 
 .value {
-    color: #00ff00;
+    color: #ff6a00;
     text-transform: capitalize;
 }
 
@@ -228,7 +223,7 @@
 
 .stats-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00ff00 0%, #00cc00 100%);
+    background: linear-gradient(90deg, #ff6a00 0%, #e55a00 100%);
     transition: width 0.3s;
 }
 
@@ -276,8 +271,8 @@
    FORMULARIO
 ======================================== */
 .arma-form {
-    background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(15, 52, 96, 0.9) 100%);
-    border: 2px solid #00ff00;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
+    border: 2px solid #ff6a00;
     border-radius: 10px;
     padding: 2rem;
     max-width: 600px;
@@ -285,10 +280,10 @@
 }
 
 .arma-form h2 {
-    color: #00ff00;
+    color: #ff6a00;
     text-align: center;
     margin-bottom: 1.5rem;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    text-shadow: 0 0 10px rgba(255, 106, 0, 0.4);
 }
 
 .form-group {
@@ -297,7 +292,7 @@
 
 .form-group label {
     display: block;
-    color: #00ff00;
+    color: #ff6a00;
     margin-bottom: 0.5rem;
     font-weight: bold;
 }
@@ -308,7 +303,7 @@
     width: 100%;
     padding: 0.8rem;
     background: rgba(0, 0, 0, 0.5);
-    border: 2px solid #00ff00;
+    border: 2px solid #ff6a00;
     border-radius: 5px;
     color: #fff;
     font-size: 1rem;
@@ -318,8 +313,8 @@
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #00cc00;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    border-color: #ff8c30;
+    box-shadow: 0 0 10px rgba(255, 106, 0, 0.3);
 }
 
 .form-actions {
@@ -330,7 +325,7 @@
 }
 
 .btn-save {
-    background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+    background: linear-gradient(135deg, #ff6a00 0%, #e55a00 100%);
     color: #000;
     border: none;
     padding: 0.8rem 2rem;
@@ -342,7 +337,7 @@
 
 .btn-save:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.5);
 }
 
 .btn-cancel {
@@ -362,7 +357,7 @@
 }
 
 /* ========================================
-   TOGGLE PACK-A-PUNCH
+   TOGGLE PACK-A-PUNCH  (conserva naranja original)
 ======================================== */
 .pap-toggle {
     display: flex;
@@ -389,11 +384,9 @@
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
-    /* Quitamos el display:block que hereda de .form-group label */
     margin-bottom: 0 !important;
 }
 
-/* Ocultamos el checkbox nativo para usar uno personalizado */
 .toggle-label input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -405,13 +398,11 @@
     cursor: pointer;
     position: relative;
     transition: all 0.3s;
-    /* Anulamos el width: 100% heredado de .form-group input */
     min-width: 50px;
     max-width: 50px;
     padding: 0;
 }
 
-/* La bolita del toggle */
 .toggle-label input[type="checkbox"]::before {
     content: '';
     position: absolute;
@@ -425,7 +416,6 @@
     box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
 }
 
-/* Cuando está activado */
 .toggle-label input[type="checkbox"]:checked {
     background: rgba(255, 140, 0, 0.3);
     border-color: #ff8c00;
@@ -436,63 +426,59 @@
     box-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
 }
 
+/* Toggle normal (no-PAP) → naranja del tema */
 .toggle-label-normal {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    color: #00cc00;
+    color: #ff6a00;
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
-    /* Quitamos el display:block que hereda de .form-group label */
     margin-bottom: 0 !important;
 }
 
-/* Ocultamos el checkbox nativo para usar uno personalizado */
 .toggle-label-normal input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     width: 50px;
     height: 26px;
     background: rgba(0, 0, 0, 0.5);
-    border: 2px solid #00cc00;
+    border: 2px solid #ff6a00;
     border-radius: 13px;
     cursor: pointer;
     position: relative;
     transition: all 0.3s;
-    /* Anulamos el width: 100% heredado de .form-group input */
     min-width: 50px;
     max-width: 50px;
     padding: 0;
 }
 
-/* La bolita del toggle */
 .toggle-label-normal input[type="checkbox"]::before {
     content: '';
     position: absolute;
     width: 18px;
     height: 18px;
-    background: #00cc00;
+    background: #ff6a00;
     border-radius: 50%;
     top: 2px;
     left: 2px;
     transition: all 0.3s;
-    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+    box-shadow: 0 0 5px rgba(255, 106, 0, 0.5);
 }
 
-/* Cuando está activado */
 .toggle-label-normal input[type="checkbox"]:checked {
-    background: rgba(0, 180, 0, 0.3);
-    border-color: #00cc00;
+    background: rgba(255, 106, 0, 0.3);
+    border-color: #ff6a00;
 }
 
 .toggle-label-normal input[type="checkbox"]:checked::before {
     left: 26px;
-    box-shadow: 0 0 10px rgba(0, 180, 0, 0.8);
+    box-shadow: 0 0 10px rgba(255, 106, 0, 0.8);
 }
 
 /* ========================================
-   SECCIÓN PAP
+   SECCIÓN PAP  (conserva naranja original)
 ======================================== */
 .pap-seccion {
     border: 2px solid #ff8c00;
@@ -510,7 +496,6 @@
     margin-bottom: 1rem;
 }
 
-/* Los inputs dentro de la sección PAP tienen borde naranja */
 .pap-seccion .form-group input,
 .pap-seccion .form-group select {
     border-color: #ff8c00;
@@ -527,7 +512,7 @@
 }
 
 /* ========================================
-   BOTÓN TOGGLE PAP EN LA CARD
+   BOTÓN TOGGLE PAP EN LA CARD  (conserva naranja original)
 ======================================== */
 .btn-pap {
     background: linear-gradient(135deg, #ff8c00 0%, #cc7000 100%);
@@ -546,15 +531,13 @@
     box-shadow: 0 6px 20px rgba(255, 140, 0, 0.5);
 }
 
-/* Cuando está mostrando PAP, el botón cambia a verde
-   para indicar que puedes volver a la base */
 .btn-pap--activo {
-    background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+    background: linear-gradient(135deg, #ff6a00 0%, #e55a00 100%);
+    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.3);
 }
 
 .btn-pap--activo:hover {
-    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.5);
 }
 
 /* ========================================
@@ -580,9 +563,9 @@
 }
 
 .btn-pag {
-    background: rgba(15, 52, 96, 0.9);
-    color: #00ff00;
-    border: 2px solid #00ff00;
+    background: rgba(20, 20, 20, 0.9);
+    color: #ff6a00;
+    border: 2px solid #ff6a00;
     padding: 0.5rem 0.9rem;
     border-radius: 5px;
     cursor: pointer;
@@ -593,8 +576,8 @@
 }
 
 .btn-pag:hover:not(:disabled) {
-    background: rgba(0, 255, 0, 0.15);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    background: rgba(255, 106, 0, 0.15);
+    box-shadow: 0 0 10px rgba(255, 106, 0, 0.4);
     transform: translateY(-1px);
 }
 
@@ -605,8 +588,8 @@
 }
 
 .btn-pag--activa {
-    background: rgba(0, 255, 0, 0.25);
-    box-shadow: 0 0 12px rgba(0, 255, 0, 0.5);
+    background: rgba(255, 106, 0, 0.25);
+    box-shadow: 0 0 12px rgba(255, 106, 0, 0.5);
     border-width: 2.5px;
 }
 
@@ -621,6 +604,11 @@
     transform: none;
     box-shadow: none;
     background: transparent;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ========================================

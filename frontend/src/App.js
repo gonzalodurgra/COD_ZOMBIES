@@ -96,7 +96,7 @@ function Navigation() {
         {/* Título principal */}
         <div className="nav-header">
           <h1 className="nav-title">
-            🧟 CALL OF DUTY ZOMBIES 🧟
+            CALL OF DUTY ZOMBIES
           </h1>
           <p className="nav-subtitle">
             World at War → Black Ops 4 | Treyarch Encyclopedia
