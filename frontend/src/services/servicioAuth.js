@@ -2,7 +2,7 @@
 // Servicio para manejar autenticación (login, registro, sesión)
 
 const BASE = process.env.REACT_APP_API_BASE;
-console.log(process.env)
+// console.log(process.env)
 const AUTH_URL = `${BASE}/auth`;
 
 class ServicioAuth {

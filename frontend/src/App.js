@@ -19,24 +19,24 @@ function App() {
 
   // Al cargar, restaurar sesión si hay token guardado
   useEffect(() => {
-    console.log('¿Hay token?', servicioAuth.estaAutenticado());
+    // console.log('¿Hay token?', servicioAuth.estaAutenticado());
 
     if (servicioAuth.estaAutenticado()) {
       servicioAuth.obtenerPerfil()
         .then(perfil => {
-          console.log('Perfil obtenido:');
+          // console.log('Perfil obtenido:');
           setUsuario(perfil);
         })
         .catch((err) => {
-          console.log('Error perfil:', err);
+          // console.log('Error perfil:', err);
           servicioAuth.logout();
         })
         .finally(() => {
-          console.log('setCargando(false)');
+          // console.log('setCargando(false)');
           setCargando(false);
         });
     } else {
-      console.log('Sin token, setCargando(false)');
+      // console.log('Sin token, setCargando(false)');
       setCargando(false);
     }
   }, []);

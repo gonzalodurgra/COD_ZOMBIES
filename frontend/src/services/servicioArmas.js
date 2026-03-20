@@ -5,7 +5,7 @@
 // En desarrollo: usa la variable de entorno o localhost
 // En producción: Render configurará automáticamente la URL
 const BASE = process.env.REACT_APP_API_BASE;
-console.log(process.env)
+// console.log(process.env)
 const API_URL = `${BASE}/api/armas`;
 const API_IMAGENES = `${BASE}/api/imagen-armas`
 
@@ -20,7 +20,7 @@ class ServicioArmas {
     - await espera a que la promesa se resuelva
     - .json() convierte la respuesta a formato JSON
     */
-    console.log('URL que se está usando:', API_URL); // 👈 agrega esto
+    // console.log('URL que se está usando:', API_URL); // 👈 agrega esto
     try {
       const response = await fetch(API_URL);
 

@@ -163,11 +163,11 @@ function Armas({ usuario }) {
     };
 
     const editarArma = (arma) => {
-        console.log('🔍 Todas las claves del arma:', Object.keys(arma));
-        console.log('🔍 Arma completa:', JSON.stringify(arma, null, 2));
-        console.log('🔍 Arma a editar:', arma);        // ¿Llegan los campos PAP?
-        console.log('🔍 papNombre:', arma.papNombre);   // ¿Es null, undefined o tiene valor?
-        console.log('🔍 mostrarPAP será:', !!arma.papNombre);
+        // console.log('🔍 Todas las claves del arma:', Object.keys(arma));
+        // console.log('🔍 Arma completa:', JSON.stringify(arma, null, 2));
+        // console.log('🔍 Arma a editar:', arma);        // ¿Llegan los campos PAP?
+        // console.log('🔍 papNombre:', arma.papNombre);   // ¿Es null, undefined o tiene valor?
+        // console.log('🔍 mostrarPAP será:', !!arma.papNombre);
         setModoEdicion(true);
         setDañoInfinito(arma.daño == "infinito");
         setMunicionInfinita(arma.reserva == "infinito");
@@ -230,8 +230,8 @@ function Armas({ usuario }) {
     const manejarCambioJuegos = (e) => {
         const juego = e.target.value;
 
-        console.log('🎮 Juego seleccionado:', juego);
-        console.log('🎮 Tipo:', typeof juego);
+        // console.log('🎮 Juego seleccionado:', juego);
+        // console.log('🎮 Tipo:', typeof juego);
 
         setArmaActual({
             ...armaActual,
@@ -281,7 +281,7 @@ function Armas({ usuario }) {
         e.preventDefault();
         e.stopPropagation();
 
-        console.log('🚀 guardarArma ejecutado - la página NO debería recargarse');
+        // console.log('🚀 guardarArma ejecutado - la página NO debería recargarse');
         setCargando(true);
 
         try {
@@ -307,25 +307,25 @@ function Armas({ usuario }) {
             if (dañoPapInfinito) armaParaGuardar.papDaño = 'infinito';
             if (reservaPapInfinita) armaParaGuardar.papReserva = 'infinito';
             // DEPURACIÓN: Ver qué datos vamos a enviar
-            console.log('📤 Datos a enviar:', armaParaGuardar);
-            console.log('📋 Tipos de datos:', {
-                nombre: typeof armaParaGuardar.nombre,
-                tipo: typeof armaParaGuardar.tipo,
-                imagen: typeof armaParaGuardar.imagen,
-                daño: typeof armaParaGuardar.daño,
-                multiplicadores: typeof armaParaGuardar.multiplicadores,
-                cargador: typeof armaParaGuardar.cargador,
-                reserva: typeof armaParaGuardar.reserva,
-                cadencia: typeof armaParaGuardar.cadencia,
-                recarga: typeof armaParaGuardar.recarga,
-                descripcion: typeof armaParaGuardar.descripcion,
-                juego: typeof armaParaGuardar.juego
-            });
+            // console.log('📤 Datos a enviar:', armaParaGuardar);
+            // console.log('📋 Tipos de datos:', {
+            //     nombre: typeof armaParaGuardar.nombre,
+            //     tipo: typeof armaParaGuardar.tipo,
+            //     imagen: typeof armaParaGuardar.imagen,
+            //     daño: typeof armaParaGuardar.daño,
+            //     multiplicadores: typeof armaParaGuardar.multiplicadores,
+            //     cargador: typeof armaParaGuardar.cargador,
+            //     reserva: typeof armaParaGuardar.reserva,
+            //     cadencia: typeof armaParaGuardar.cadencia,
+            //     recarga: typeof armaParaGuardar.recarga,
+            //     descripcion: typeof armaParaGuardar.descripcion,
+            //     juego: typeof armaParaGuardar.juego
+            // });
 
             delete armaParaGuardar.id;
             delete armaParaGuardar.imagenFile;
 
-            console.log(armaParaGuardar)
+            // console.log(armaParaGuardar)
 
 
             // PASO 2: Crear o actualizar el arma
