@@ -3,10 +3,13 @@
 
 import { useState } from 'react';
 
-function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, eficienciaMaximo, dpsMaximo }) {
+function ArmaCard({ usuario, iteraciones, onEditar, onEliminar, capacidadCampeoMaxima, eficienciaMaximo, dpsMaximo }) {
 
     const [viendoPAP, setViendoPAP] = useState(false);
+    const [juegoActivo, setJuegoActivo] = useState(iteraciones[0].juego);
 
+
+    const arma = iteraciones.find(a => a.juego === juegoActivo) || iteraciones[0];
     // Según el modo, mostramos los datos base o los del Pack-a-Punch
     const nombre = viendoPAP && arma.papNombre ? arma.papNombre : arma.nombre;
     const imagen = arma.imagen;
@@ -24,7 +27,10 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
     const eficiencia = ((daño * multiplicadores.cabeza) + (daño * multiplicadores.torso)) * (reserva + cargador) / 4;
     const dps = ((daño * cadencia * multiplicadores.cabeza) + (daño * cadencia * multiplicadores.torso)) / 4;
 
-
+    const cambiarJuego = (juego) => {
+        setJuegoActivo(juego);
+        setViendoPAP(false);
+    };
 
     return (
         <div className={`arma-card ${viendoPAP ? 'pap-activo' : ''}`}>
@@ -34,15 +40,18 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
             {/* Nombre */}
             <h3>{nombre}</h3>
 
-            {/* Botón toggle PAP */}
-            {arma.pap_nombre && (
-                <button
-                    className={`btn-pap ${viendoPAP ? 'btn-pap--activo' : ''}`}
-                    onClick={() => setViendoPAP(!viendoPAP)}
-                >
-                    {viendoPAP ? '⬇️ Ver base' : '⬆️ Pack-a-Punch'}
-                </button>
-            )}
+            {/* Botones de juego — uno por iteración */}
+            <div className="game-tags">
+                {iteraciones.map(it => (
+                    <button
+                        key={it.juego}
+                        className={`${it.juego === juegoActivo ? 'game-tag--activo' : 'game-tag'}`}
+                        onClick={() => cambiarJuego(it.juego)}
+                    >
+                        {it.juego}
+                    </button>
+                ))}
+            </div>
 
             {/* Información del arma */}
             <div className="arma-info">
@@ -55,6 +64,11 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 <div className="info-row">
                     <span className="label">Daño:</span>
                     <span className="value">{daño === 'infinito' ? '∞' : daño}</span>
+                </div>
+
+                <div className="info-row">
+                    <div className="label">Cargador</div>
+                    <span className="value">{cargador}</span>
                 </div>
 
                 <div className="info-row">
@@ -97,10 +111,6 @@ function ArmaCard({ usuario, arma, onEditar, onEliminar, capacidadCampeoMaxima, 
                 </div>
 
                 <p className="descripcion">{arma.descripcion}</p>
-
-                <div className="game-tags">
-                    <span className="game-tag">{arma.juego}</span>
-                </div>
             </div>
 
             {/* Botones de acción */}

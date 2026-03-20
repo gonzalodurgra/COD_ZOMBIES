@@ -42,7 +42,8 @@ function Mapas({ usuario }) {
     const [cargandoExtras, setCargandoExtras] = useState(false);
 
     // Para abrir el modal
-    const [mapaDetalle, setMapaDetalle] = useState(null);
+    const [mapaDetalleArmas, setMapaDetalleArmas] = useState(null);
+    const [mapaDetalleVentajas, setMapaDetalleVentajas] = useState(null);
 
     // ─── Efectos ────────────────────────────────────────────────
     useEffect(() => {
@@ -549,7 +550,7 @@ function Mapas({ usuario }) {
             {!cargando && !mostrarFormulario && (
                 <div className="mapas-grid">
                     {mapasFiltrados.map((mapa) => (
-                        <div key={mapa.id} className="mapa-card" onClick={() => setMapaDetalle(mapa)}>
+                        <div key={mapa.id} className="mapa-card">
 
                             {/* Imagen */}
                             <div className="mapa-imagen-wrapper">
@@ -575,12 +576,12 @@ function Mapas({ usuario }) {
 
                                 {/* Stats rápidos */}
                                 <div className="mapa-stats">
-                                    <div className="stat-item">
+                                    <div className="stat-item" onClick={() => setMapaDetalleArmas(mapa)}>
                                         <span className="stat-icono">🔫</span>
                                         <span className="stat-valor">{mapa.armas?.length ?? 0}</span>
                                         <span className="stat-label">Armas</span>
                                     </div>
-                                    <div className="stat-item">
+                                    <div className="stat-item" onClick={() => setMapaDetalleVentajas(mapa)}>
                                         <span className="stat-icono">💊</span>
                                         <span className="stat-valor">{mapa.ventajas?.length ?? 0}</span>
                                         <span className="stat-label">Ventajas</span>
@@ -613,24 +614,24 @@ function Mapas({ usuario }) {
                     )}
                 </div>
             )}
-            {mapaDetalle && (
-                <div className="modal-overlay active" onClick={(e) => e.target === e.currentTarget && setMapaDetalle(null)}>
+            {mapaDetalleArmas && (
+                <div className="modal-overlay active" onClick={(e) => e.target === e.currentTarget && setMapaDetalleArmas(null)}>
                     <div className="modal">
                         <div className="modal-header">
                             <div className="modal-header-text">
-                                <h2>{mapaDetalle.nombre}</h2>
-                                <p>{mapaDetalle.descripcion}</p>
+                                <h2>{mapaDetalleArmas.nombre}</h2>
+                                <p>{mapaDetalleArmas.descripcion}</p>
                             </div>
-                            <button className="modal-close" onClick={() => setMapaDetalle(null)}>✕</button>
+                            <button className="modal-close" onClick={() => setMapaDetalleArmas(null)}>✕</button>
                         </div>
                         <div className="modal-body">
                             {/* --- ARMAS --- */}
                             <div className="modal-section">
                                 <div className="section-title">
-                                    Armas <span className="section-count">{mapaDetalle.armas?.length ?? 0}</span>
+                                    Armas <span className="section-count">{mapaDetalleArmas.armas?.length ?? 0}</span>
                                 </div>
                                 <div className="armas-grid">
-                                    {mapaDetalle.armas?.map(({ arma, precio, enCaja }, i) => (
+                                    {mapaDetalleArmas.armas?.map(({ arma, precio, enCaja }, i) => (
                                         <div key={i} className="arma-card">
                                             <div className="arma-nombre">{arma.nombre}</div>
                                             <div className="arma-imagen">
@@ -642,13 +643,28 @@ function Mapas({ usuario }) {
                                     ))}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {mapaDetalleVentajas && (
+                <div className="modal-overlay active" onClick={(e) => e.target === e.currentTarget && setMapaDetalleVentajas(null)}>
+                    <div className="modal">
+                        <div className="modal-header">
+                            <div className="modal-header-text">
+                                <h2>{mapaDetalleVentajas.nombre}</h2>
+                                <p>{mapaDetalleVentajas.descripcion}</p>
+                            </div>
+                            <button className="modal-close" onClick={() => setMapaDetalleVentajas(null)}>✕</button>
+                        </div>
+                        <div className="modal-body">
                             {/* --- VENTAJAS --- */}
                             <div className="modal-section">
                                 <div className="section-title">
-                                    Ventajas <span className="section-count">{mapaDetalle.ventajas?.length ?? 0}</span>
+                                    Ventajas <span className="section-count">{mapaDetalleVentajas.ventajas?.length ?? 0}</span>
                                 </div>
                                 <div className="ventajas-grid">
-                                    {mapaDetalle.ventajas?.map(({ ventaja, precio }, i) => (
+                                    {mapaDetalleVentajas.ventajas?.map(({ ventaja, precio }, i) => (
                                         <div key={i} className="ventaja-card">
                                             <div className="ventaja-imagen">
                                                 <img src={ventaja.imagen} />
