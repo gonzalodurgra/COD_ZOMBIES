@@ -288,6 +288,18 @@ function Armas({ usuario }) {
             // Crear una copia del arma actual para trabajar con ella
             let armaParaGuardar = { ...armaActual };
 
+            // Limpiar campos PAP si el toggle está desactivado
+            if (!tienePAP) {
+                armaParaGuardar.papNombre = null;
+                armaParaGuardar.papDaño = null;
+                armaParaGuardar.papMultiplicadores = null;
+                armaParaGuardar.papCargador = null;
+                armaParaGuardar.papReserva = null;
+                armaParaGuardar.papCadencia = null;
+                armaParaGuardar.papRecarga = null;
+            }
+
+
             // PASO 1: Si hay una imagen nueva, subirla primero
             if (armaActual.imagenFile) {
                 // Subir la imagen al servidor

@@ -6,6 +6,7 @@ import servicioMapas from '../services/servicioMapas';
 import servicioArmas from '../services/servicioArmas';
 import servicioVentajas from '../services/servicioVentajas';
 import './mapas.css';
+import MapaCard from './mapa-card';
 
 const JUEGOS_DISPONIBLES = ['WAW', 'BO1', 'BO2', 'BO3', 'BO4'];
 
@@ -70,8 +71,19 @@ function Mapas({ usuario }) {
         setError('');
         try {
             const data = await servicioMapas.obtenerMapas();
-            setMapas(data);
-            setMapasFiltrados(data);
+
+            const agrupados = Object.values(
+                data.reduce((acc, mapa) => {
+                    if (!acc[mapa.nombre]) {
+                        acc[mapa.nombre] = { nombre: mapa.nombre, imagen: mapa.imagen, iteraciones: [] };
+                    }
+                    acc[mapa.nombre].iteraciones.push(mapa);
+                    return acc;
+                }, {})
+            );
+
+            setMapas(agrupados);
+            setMapasFiltrados(agrupados);
         } catch (err) {
             setError('Error al cargar los mapas. Por favor, intenta de nuevo.');
             console.error('❌ Error:', err);
@@ -103,10 +115,14 @@ function Mapas({ usuario }) {
         let resultado = mapas;
 
         if (juego !== 'all') {
-            resultado = resultado.filter(m => m.juego === juego);
+            resultado = resultado.filter(grupo =>
+                grupo.iteraciones.some(m => m.juego === juego)
+            );
         }
         if (dificultad !== 'all') {
-            resultado = resultado.filter(m => m.dificultad === dificultad);
+            resultado = resultado.filter(grupo =>
+                grupo.iteraciones.some(m => m.dificultad === dificultad)
+            );
         }
 
         setMapasFiltrados(resultado);
@@ -260,7 +276,7 @@ function Mapas({ usuario }) {
                 }
             }
 
-            console.log("Enviando:", JSON.stringify(mapaParaGuardar, null, 2));
+            // console.log("Enviando:", JSON.stringify(mapaParaGuardar, null, 2));
 
             if (modoEdicion && mapaActual.id) {
                 await servicioMapas.actualizarMapa(mapaActual.id, mapaParaGuardar);
@@ -424,7 +440,7 @@ function Mapas({ usuario }) {
                             <label>
                                 Juegos * <span className="form-hint">(selecciona uno)</span>
                             </label>
-                            <select onChange={(e) => manejarCambioJuego(e.target.value)}>
+                            <select value={mapaActual.juego} onChange={(e) => manejarCambioJuego(e.target.value)}>
                                 {JUEGOS_DISPONIBLES.map(juego => (
                                     <option key={juego} value={juego}>{juego}</option>
                                 ))}
@@ -549,62 +565,17 @@ function Mapas({ usuario }) {
             {/* Grid de mapas */}
             {!cargando && !mostrarFormulario && (
                 <div className="mapas-grid">
-                    {mapasFiltrados.map((mapa) => (
-                        <div key={mapa.id} className="mapa-card">
-
-                            {/* Imagen */}
-                            <div className="mapa-imagen-wrapper">
-                                <img
-                                    src={mapa.imagen}
-                                    alt={mapa.nombre}
-                                    className="mapa-imagen"
-                                />
-                                {/* Badge de dificultad sobre la imagen */}
-                                <span
-                                    className="badge-dificultad"
-                                    style={{ color: colorDificultad(mapa.dificultad), borderColor: colorDificultad(mapa.dificultad) }}
-                                >
-                                    {mapa.dificultad}
-                                </span>
-                            </div>
-
-                            {/* Info */}
-                            <div className="mapa-info">
-                                <h3>{mapa.nombre}</h3>
-
-                                <p className="mapa-descripcion">{mapa.descripcion}</p>
-
-                                {/* Stats rápidos */}
-                                <div className="mapa-stats">
-                                    <div className="stat-item" onClick={() => setMapaDetalleArmas(mapa)}>
-                                        <span className="stat-icono">🔫</span>
-                                        <span className="stat-valor">{mapa.armas?.length ?? 0}</span>
-                                        <span className="stat-label">Armas</span>
-                                    </div>
-                                    <div className="stat-item" onClick={() => setMapaDetalleVentajas(mapa)}>
-                                        <span className="stat-icono">💊</span>
-                                        <span className="stat-valor">{mapa.ventajas?.length ?? 0}</span>
-                                        <span className="stat-label">Ventajas</span>
-                                    </div>
-                                </div>
-
-                                {/* Tags de juegos */}
-                                <div className="game-tags">
-                                    {mapa.juegos?.map((juego) => (
-                                        <span key={juego} className="game-tag">{juego}</span>
-                                    ))}
-                                </div>
-                                {/* Botones CRUD */}
-                                <div className="card-acciones">
-                                    {usuario && <button onClick={() => editarMapa(mapa)} className="btn-edit">
-                                        ✏️ Editar
-                                    </button>}
-                                    {usuario && <button onClick={() => eliminarMapa(mapa.id)} className="btn-delete">
-                                        🗑️ Eliminar
-                                    </button>}
-                                </div>
-                            </div>
-                        </div>
+                    {mapasFiltrados.map((grupo) => (
+                        <MapaCard
+                            key={grupo.nombre}
+                            usuario={usuario}
+                            iteraciones={grupo.iteraciones}
+                            onEditar={editarMapa}
+                            onEliminar={eliminarMapa}
+                            colorDificultad={colorDificultad}
+                            onVerArmas={setMapaDetalleArmas}
+                            onVerVentajas={setMapaDetalleVentajas}
+                        />
                     ))}
 
                     {mapasFiltrados.length === 0 && (

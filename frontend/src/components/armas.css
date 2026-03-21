@@ -251,6 +251,7 @@
     border-radius: 15px;
     font-size: 0.85rem;
     border: 1px solid #ff0000;
+    cursor: pointer;
 }
 
 .game-tag--activo {
@@ -261,6 +262,7 @@
     border-radius: 15px;
     font-size: 0.85rem;
     background: linear-gradient(135deg, #ff8c00 0%, #cc7000 100%);
+    cursor: pointer;
 }
 
 .card-acciones {
