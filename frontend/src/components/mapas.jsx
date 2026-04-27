@@ -226,11 +226,17 @@ function Mapas({ usuario }) {
     const manejarDatosArma = (arma_id, campo, valor) => {
         setMapaActual(prev => ({
             ...prev,
-            armas: prev.armas.map(a =>
-                a.arma?.id === arma_id
-                    ? { ...a, [campo]: valor }  // ✅ Conserva toda la estructura de "a"
-                    : a
-            )
+            armas: prev.armas.map(a => {
+                if (a.arma?.id === arma_id) {
+                    const nuevosDatos = { ...a, [campo]: valor };
+                    // Si se selecciona caja misteriosa, ponemos el precio en 950
+                    if (campo === 'enCaja' && valor === 'caja') {
+                        nuevosDatos.precio = 950;
+                    }
+                    return nuevosDatos;
+                }
+                return a;
+            })
         }));
     };
 
