@@ -26,6 +26,7 @@ class Arma(BaseModel):
     papReserva: Optional[int] | Literal["infinito"] = Field(None, description="Reserva mejorada")
     papCadencia: Optional[float] = Field(None, ge=0, description="Cadencia mejorada")
     papRecarga: Optional[float] = Field(None, description="Recarga mejorada en segundos")
+    papDescripcion: Optional[str] = Field(None, description="Descripción del arma mejorada")
     # mapas: dict[str, tuple[int, bool]] = Field(default=[], description="Lista de mapas donde aparece, junto a su precio")
 
 class ArmaDB(Arma):

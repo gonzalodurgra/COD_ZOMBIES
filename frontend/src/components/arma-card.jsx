@@ -1,12 +1,18 @@
 // src/components/ArmaCard.jsx
 // Tarjeta individual de arma, extraída de Weapons.jsx
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function ArmaCard({ usuario, iteraciones, onEditar, onEliminar, capacidadCampeoMaxima, eficienciaMaximo, dpsMaximo }) {
+function ArmaCard({ usuario, iteraciones, onEditar, onEliminar, capacidadCampeoMaxima, eficienciaMaximo, dpsMaximo, juegoSeleccionado }) {
 
     const [viendoPAP, setViendoPAP] = useState(false);
     const [juegoActivo, setJuegoActivo] = useState(iteraciones[0].juego);
+
+    useEffect(() => {
+        if (juegoSeleccionado !== 'all' && iteraciones.some(it => it.juego === juegoSeleccionado)) {
+            setJuegoActivo(juegoSeleccionado);
+        }
+    }, [juegoSeleccionado, iteraciones]);
 
 
     const arma = iteraciones.find(a => a.juego === juegoActivo) || iteraciones[0];
@@ -25,7 +31,19 @@ function ArmaCard({ usuario, iteraciones, onEditar, onEliminar, capacidadCampeoM
     // Recalculamos las barras con los datos activos (base o PAP)
     const capacidadCampeo = ((cargador * daño * multiplicadores.cabeza) + (cargador * daño * multiplicadores.torso)) / recarga / 4;
     const eficiencia = ((daño * multiplicadores.cabeza) + (daño * multiplicadores.torso)) * (reserva + cargador) / 4;
-    const dps = ((daño * cadencia * multiplicadores.cabeza) + (daño * cadencia * multiplicadores.torso)) / 4;
+    const dps = ((daño * (cadencia / 60) * multiplicadores.cabeza) + (daño * (cadencia / 60) * multiplicadores.torso)) / 4;
+
+    // Función para calcular el porcentaje con escala logarítmica para manejar outliers
+    const calcularPorcentaje = (valor, maximo) => {
+        if (valor <= 0) return 0;
+        if (maximo <= 0) return 0;
+
+        // Usamos una escala de potencia
+        const exponente = 0.2;
+        let pct = Math.pow(valor / maximo, exponente) * 100;
+
+        return Math.min(Math.max(pct, 2), 100);
+    };
 
     const cambiarJuego = (juego) => {
         setJuegoActivo(juego);
@@ -75,13 +93,18 @@ function ArmaCard({ usuario, iteraciones, onEditar, onEliminar, capacidadCampeoM
                     <span className="label">Recarga:</span>
                     <span className="value">{recarga}</span>
                 </div>
-
                 {/* Barra: Capacidad de campeo */}
-                <div className="stats-bar">
-                    <div
-                        className="stats-fill"
-                        style={{ width: `${daño != "infinito" ? (capacidadCampeo / capacidadCampeoMaxima) * 100 : 100}%` }}
-                    ></div>
+                <div className="stats-container">
+                    <div className="info-row no-bg">
+                        <span className="label-stat">Campear:</span>
+                        <span className="value-stat">{daño === 'infinito' ? '∞' : Math.round(capacidadCampeo).toLocaleString()}</span>
+                    </div>
+                    <div className="stats-bar" title="Capacidad de Campeo">
+                        <div
+                            className="stats-fill stats-fill--campeo"
+                            style={{ width: `${daño !== "infinito" ? calcularPorcentaje(capacidadCampeo, capacidadCampeoMaxima) : 100}%` }}
+                        ></div>
+                    </div>
                 </div>
 
                 <div className="info-row">
@@ -90,11 +113,17 @@ function ArmaCard({ usuario, iteraciones, onEditar, onEliminar, capacidadCampeoM
                 </div>
 
                 {/* Barra: Eficiencia */}
-                <div className="stats-bar">
-                    <div
-                        className="stats-fill"
-                        style={{ width: `${daño != "infinito" && reserva != "infinito" ? (eficiencia / eficienciaMaximo) * 100 : 100}%` }}
-                    ></div>
+                <div className="stats-container">
+                    <div className="info-row no-bg">
+                        <span className="label-stat">Eficiencia:</span>
+                        <span className="value-stat">{daño === 'infinito' || reserva === 'infinito' ? '∞' : Math.round(eficiencia).toLocaleString()}</span>
+                    </div>
+                    <div className="stats-bar" title="Eficiencia Total">
+                        <div
+                            className="stats-fill stats-fill--eficiencia"
+                            style={{ width: `${daño !== "infinito" && reserva !== "infinito" ? calcularPorcentaje(eficiencia, eficienciaMaximo) : 100}%` }}
+                        ></div>
+                    </div>
                 </div>
 
                 <div className="info-row">
@@ -103,14 +132,22 @@ function ArmaCard({ usuario, iteraciones, onEditar, onEliminar, capacidadCampeoM
                 </div>
 
                 {/* Barra: DPS */}
-                <div className="stats-bar">
-                    <div
-                        className="stats-fill"
-                        style={{ width: `${daño != "infinito" ? (dps / dpsMaximo) * 100 : 100}%` }}
-                    ></div>
+                <div className="stats-container">
+                    <div className="info-row no-bg">
+                        <span className="label-stat">DPS:</span>
+                        <span className="value-stat">{daño === 'infinito' ? '∞' : Math.round(dps).toLocaleString()}</span>
+                    </div>
+                    <div className="stats-bar" title="Daño por Segundo">
+                        <div
+                            className="stats-fill stats-fill--dps"
+                            style={{ width: `${daño !== "infinito" ? calcularPorcentaje(dps, dpsMaximo) : 100}%` }}
+                        ></div>
+                    </div>
                 </div>
 
-                <p className="descripcion">{arma.descripcion}</p>
+                <p className="descripcion">
+                    {(viendoPAP && arma.papDescripcion) ? arma.papDescripcion : arma.descripcion}
+                </p>
             </div>
 
             {/* Botones de acción */}

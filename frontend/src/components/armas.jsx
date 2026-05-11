@@ -12,6 +12,7 @@ function Armas({ usuario }) {
     const [armas, setArmas] = useState([]);
     const [armasFiltradas, setArmasFiltradas] = useState([]);
     const [tipoSeleccionado, setTipoSeleccionado] = useState('all');
+    const [juegoSeleccionado, setJuegoSeleccionado] = useState('all');
     const [cargando, setCargando] = useState(false);
     const [error, setError] = useState('');
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -25,7 +26,7 @@ function Armas({ usuario }) {
     const [capacidadCampeoMaxima, setCapacidadCampeoMaxima] = useState(0);
     const [eficienciaMaximo, setEficienciaMaximo] = useState(0);
     const [dpsMaximo, setDpsMaximo] = useState(0);
-    const agrupadas = [];
+    // const agrupadas = [];
 
     const [armaActual, setArmaActual] = useState({
         nombre: '',
@@ -50,7 +51,8 @@ function Armas({ usuario }) {
         papCargador: 40,
         papReserva: 200,
         papCadencia: 750,
-        papRecarga: 2
+        papRecarga: 2,
+        papDescripcion: ''
     });
 
     const ARMAS_POR_PAGINA = 12;
@@ -107,12 +109,12 @@ function Armas({ usuario }) {
                 const cadencia = a.papCadencia ?? a.cadencia;
                 const mults = a.papMultiplicadores ?? a.multiplicadores;
                 if (daño === 'infinito') return max;
-                const valor = ((daño * cadencia * mults.cabeza) + (daño * cadencia * mults.torso)) / 4;
+                const valor = ((daño * (cadencia / 60) * mults.cabeza) + (daño * (cadencia / 60) * mults.torso)) / 4;
                 return Math.max(max, valor);
             }, 0));
 
             setArmas(agrupadas);
-            setArmasFiltradas(agrupadas);
+            aplicarFiltros(tipoSeleccionado, juegoSeleccionado, agrupadas);
         } catch (err) {
             setError('Error al cargar las armas. Por favor, intenta de nuevo.');
             console.error('❌ Error:', err);
@@ -121,19 +123,37 @@ function Armas({ usuario }) {
         }
     };
 
+    const aplicarFiltros = (tipo, juego, listaArmas = armas) => {
+        let filtradas = [...listaArmas];
+
+        // Filtro por tipo
+        if (tipo !== 'all') {
+            if (tipo === 'normal') {
+                filtradas = filtradas.filter(arma => arma.tipo !== "maravillosa");
+            } else {
+                filtradas = filtradas.filter(arma => arma.tipo === tipo);
+            }
+        }
+
+        // Filtro por juego
+        if (juego !== 'all') {
+            filtradas = filtradas.filter(arma =>
+                arma.iteraciones.some(it => it.juego === juego)
+            );
+        }
+
+        setArmasFiltradas(filtradas);
+        setPaginaActual(1);
+    };
+
     const filtrarTipo = (tipo) => {
         setTipoSeleccionado(tipo);
-        setPaginaActual(1);
-        if (tipo === 'all') {
-            setArmasFiltradas(armas);
-        } else if (tipo != 'normal') {
-            const filtradas = armas.filter(arma => arma.tipo === tipo);
-            setArmasFiltradas(filtradas);
-        }
-        else {
-            const filtradas = armas.filter(arma => arma.tipo != "maravillosa")
-            setArmasFiltradas(filtradas)
-        }
+        aplicarFiltros(tipo, juegoSeleccionado);
+    };
+
+    const filtrarJuego = (juego) => {
+        setJuegoSeleccionado(juego);
+        aplicarFiltros(tipoSeleccionado, juego);
     };
 
     const abrirFormularioCreacion = () => {
@@ -157,7 +177,8 @@ function Armas({ usuario }) {
             papCargador: 40,
             papReserva: 200,
             papCadencia: 750,
-            papRecarga: 2
+            papRecarga: 2,
+            papDescripcion: ''
         });
         setMostrarFormulario(true);
     };
@@ -169,10 +190,10 @@ function Armas({ usuario }) {
         // console.log('🔍 papNombre:', arma.papNombre);   // ¿Es null, undefined o tiene valor?
         // console.log('🔍 mostrarPAP será:', !!arma.papNombre);
         setModoEdicion(true);
-        setDañoInfinito(arma.daño == "infinito");
-        setMunicionInfinita(arma.reserva == "infinito");
-        setDañoPapInfinito(arma.papDaño == "infinito");
-        setReservaPapInfinita(arma.papReserva == "infinito")
+        setDañoInfinito(arma.daño === "infinito");
+        setMunicionInfinita(arma.reserva === "infinito");
+        setDañoPapInfinito(arma.papDaño === "infinito");
+        setReservaPapInfinita(arma.papReserva === "infinito")
         setArmaActual({
             ...arma,
             papMultiplicadores: arma.papMultiplicadores ?? { cabeza: 4, torso: 1.5, abdomen: 1 },
@@ -181,7 +202,8 @@ function Armas({ usuario }) {
             papCargador: arma.papCargador ?? 40,
             papReserva: arma.papReserva ?? 200,
             papCadencia: arma.papCadencia ?? 750,
-            papRecarga: arma.papRecarga ?? 2
+            papRecarga: arma.papRecarga ?? 2,
+            papDescripcion: arma.papDescripcion ?? ''
         });
         setMostrarPAP(!!arma.papNombre);
         setTienePAP(!!arma.papNombre);
@@ -297,6 +319,7 @@ function Armas({ usuario }) {
                 armaParaGuardar.papReserva = null;
                 armaParaGuardar.papCadencia = null;
                 armaParaGuardar.papRecarga = null;
+                armaParaGuardar.papDescripcion = null;
             }
 
 
@@ -429,28 +452,46 @@ function Armas({ usuario }) {
                 </div>
             )}
 
-            {/* Filtros */}
             <div className="contenedor-filtro">
-                <label>
-                    Filtrar por tipo:
-                </label>
-                <select
-                    value={tipoSeleccionado}
-                    onChange={(e) => filtrarTipo(e.target.value)}
-                    className="filtro-select"
-                >
-                    <option value="all">Todos los tipos</option>
-                    <option value="fusil">Fusil de Asalto</option>
-                    <option value="subfusil">Subfusil</option>
-                    <option value="ametralladora">Ametralladora ligera</option>
-                    <option value="francotirador">Francotirador</option>
-                    <option value="escopeta">Escopeta</option>
-                    <option value="pistola">Pistola</option>
-                    <option value="lanzacohetes">Lanzacohetes</option>
-                    <option value="especial">Especial</option>
-                    <option value="maravillosa">Maravillosa</option>
-                    <option value="normal">Normal</option>
-                </select>
+                <div className="filtro-item">
+                    <label>
+                        Filtrar por tipo:
+                    </label>
+                    <select
+                        value={tipoSeleccionado}
+                        onChange={(e) => filtrarTipo(e.target.value)}
+                        className="filtro-select"
+                    >
+                        <option value="all">Todos los tipos</option>
+                        <option value="fusil">Fusil de Asalto</option>
+                        <option value="subfusil">Subfusil</option>
+                        <option value="ametralladora">Ametralladora ligera</option>
+                        <option value="francotirador">Francotirador</option>
+                        <option value="escopeta">Escopeta</option>
+                        <option value="pistola">Pistola</option>
+                        <option value="lanzacohetes">Lanzacohetes</option>
+                        <option value="especial">Especial</option>
+                        <option value="maravillosa">Maravillosa</option>
+                        <option value="normal">Normal</option>
+                    </select>
+                </div>
+
+                <div className="filtro-item">
+                    <label>
+                        Filtrar por juego:
+                    </label>
+                    <select
+                        value={juegoSeleccionado}
+                        onChange={(e) => filtrarJuego(e.target.value)}
+                        className="filtro-select"
+                    >
+                        <option value="all">Todos los juegos</option>
+                        <option value="WAW">World at War</option>
+                        <option value="BO1">Black Ops 1</option>
+                        <option value="BO2">Black Ops 2</option>
+                        <option value="BO3">Black Ops 3</option>
+                    </select>
+                </div>
             </div>
 
             {/* Spinner de carga */}
@@ -470,6 +511,7 @@ function Armas({ usuario }) {
                                 usuario={usuario}
                                 key={arma.nombre}
                                 iteraciones={arma.iteraciones}
+                                juegoSeleccionado={juegoSeleccionado}
                                 onEditar={editarArma}
                                 onEliminar={eliminarArma}
                                 capacidadCampeoMaxima={capacidadCampeoMaxima}
@@ -797,6 +839,18 @@ function Armas({ usuario }) {
                                         <label htmlFor="papRecarga">Recarga PAP *</label>
                                         <input type="number" id="papRecarga" value={armaActual.papRecarga} onChange={manejarInputCambio} min="0" step="0.01" required={mostrarPAP} />
                                     </div>
+                                </div>
+
+                                {/* Descripción PAP */}
+                                <div className='form-group'>
+                                    <label htmlFor="papDescripcion">Descripción PAP *</label>
+                                    <textarea
+                                        id="papDescripcion"
+                                        value={armaActual.papDescripcion || ''}
+                                        onChange={manejarInputCambio}
+                                        required={mostrarPAP}
+                                        placeholder="Descripción del arma mejorada"
+                                    />
                                 </div>
                             </div>
                         )}

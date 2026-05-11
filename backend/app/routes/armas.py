@@ -6,8 +6,6 @@ from typing import List, Optional
 from bson import ObjectId
 from app.models import ArmaDB, Arma
 from app.database import get_database
-import shutil
-from pathlib import Path
 
 # PASO 1: Crear el router para las armas
 # El prefijo "/weapons" significa que todas las rutas empezarán con /api/weapons
@@ -41,7 +39,8 @@ def arma_helper(arma) -> Optional[dict]:
         "papCargador": arma.get("papCargador", None),
         "papReserva": arma.get("papReserva", None),
         "papCadencia": arma.get("papCadencia", None),
-        "papRecarga": arma.get("papRecarga", None)
+        "papRecarga": arma.get("papRecarga", None),
+        "papDescripcion": arma.get("papDescripcion", None)
     }
     
     # DEBUG
@@ -173,8 +172,19 @@ async def actualizar_arma(arma_id: str, arma_actualizar: Arma):
     
     # Obtener el arma actualizada
     updated_weapon = await db["armas"].find_one({"_id": ObjectId(arma_id)})
+    arma_completa = arma_helper(updated_weapon)
     
-    return arma_helper(updated_weapon)
+    # CASCADING UPDATE: Sincronizar los datos del arma en todos los mapas
+    # Buscamos en la colección 'mapas' cualquier documento que tenga esta arma en su lista
+    await db["mapas"].update_many(
+        {"armas.arma.id": arma_id},
+        {"$set": {"armas.$[elem].arma": arma_completa}},
+        array_filters=[{"elem.arma.id": arma_id}]
+    )
+    
+    print(f"🔄 Sincronizada arma '{arma_completa['nombre']}' en todos los mapas.")
+    
+    return arma_completa
 
 # PASO 8: DELETE - Eliminar un arma
 @router.delete("/{arma_id}", status_code=status.HTTP_204_NO_CONTENT)
